@@ -255,10 +255,19 @@
       opacity: 0.8;
       transform: translate(-2px, 1px);
     }
+
+    /* Snow canvas */
+    #snowCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
   </style>
 </head>
 <body class="text-slate-50 font-mono antialiased text-[16px] sm:text-[17px]">
   <div class="noise"></div>
+  <canvas id="snowCanvas"></canvas>
 
   <header class="relative z-10 border-b border-slate-800/80 bg-gradient-to-b from-black/70 via-slate-950/60 to-transparent backdrop-blur-xl">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -715,6 +724,81 @@
         window.open(vkUrl, '_blank');
       });
     }
+
+    // Snow effect
+    (function () {
+      const canvas = document.getElementById('snowCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+
+      const snowflakes = [];
+      const FLAKES_COUNT = 120;
+
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width * window.devicePixelRatio;
+        canvas.height = height * window.devicePixelRatio;
+        ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+      }
+
+      function createFlake() {
+        return {
+          x: Math.random() * width,
+          y: Math.random() * -height,
+          r: Math.random() * 2 + 1,
+          speedY: Math.random() * 0.8 + 0.6,
+          speedX: Math.random() * 0.6 - 0.3,
+          opacity: Math.random() * 0.5 + 0.3,
+        };
+      }
+
+      function initFlakes() {
+        snowflakes.length = 0;
+        for (let i = 0; i < FLAKES_COUNT; i++) {
+          const f = createFlake();
+          f.y = Math.random() * height;
+          snowflakes.push(f);
+        }
+      }
+
+      function update() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = '#ffffff';
+
+        for (let i = 0; i < snowflakes.length; i++) {
+          const f = snowflakes[i];
+          f.y += f.speedY;
+          f.x += f.speedX;
+
+          if (f.y > height + 5) {
+            snowflakes[i] = createFlake();
+          }
+
+          if (f.x < -5) f.x = width + 5;
+          if (f.x > width + 5) f.x = -5;
+
+          ctx.globalAlpha = f.opacity;
+          ctx.beginPath();
+          ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(update);
+      }
+
+      resize();
+      initFlakes();
+      update();
+
+      window.addEventListener('resize', () => {
+        resize();
+        initFlakes();
+      });
+    })();
 
   </script>
 </body>
