@@ -299,7 +299,7 @@
         </p>
         <div class="flex flex-wrap gap-3 items-center">
           <button id="scrollToOrder" class="btn-punk inline-flex items-center gap-2 border border-lime-400 bg-lime-500/10 px-5 py-2.5 uppercase tracking-[0.2em] text-xs text-lime-300 hover:text-lime-100 rounded-sm">
-            <span>Заказать песню за 5000 ₽</span>
+            <span>Заказать песню за 2500 ₽</span>
           </button>
           <a href="#music" class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-slate-300 hover:text-orange-300">
             <span class="link-underline">Слушать релизы</span>
@@ -451,6 +451,26 @@
         </div>
 
         <div class="space-y-4">
+          <!-- News sale: скидка 50% на заказ песен -->
+          <article class="border border-pink-500/80 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 rounded-md px-4 py-4 flex flex-col gap-3 card-hover shadow-[0_0_25px_rgba(244,114,182,0.45)]">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em]">
+                <span class="inline-flex items-center justify-center px-2 py-1 border border-pink-400 rounded-sm bg-pink-500 text-black font-bold">АКЦИЯ</span>
+                <span class="text-pink-200/90">скидка 50% на заказ песен</span>
+              </div>
+              <span class="text-[10px] uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-black/60 border border-lime-400/80 text-lime-300 shadow-[0_0_16px_rgba(190,242,100,0.65)]">
+                до 1 января включительно
+              </span>
+            </div>
+            <p class="text-[12px] text-slate-100">
+              Сейчас мы рубим цену на заказ авторских треков <span class="font-semibold text-lime-300">ровно вдвое</span> — вместо 5000 ₽ песня под тебя стоит <span class="font-bold text-lime-300">2500 ₽</span>. Панк, пост‑панк, грязный поп‑панк — всё по акции.
+            </p>
+            <p class="text-[12px] text-slate-200">
+              Успеть можно <span class="font-semibold text-pink-300">до 1 января включительно</span>. Просто переходи в блок
+              <a href="#order" class="text-orange-300 hover:text-orange-200 underline underline-offset-2">«заказ песен»</a>, заполняй форму и кидай нам заявку в ВКонтакте.
+            </p>
+          </article>
+
           <!-- News 0: Резонанс тишины анонс -->
           <article class="border border-yellow-400/80 bg-yellow-400/10 rounded-md px-4 py-3 flex flex-col gap-3 card-hover">
             <div class="flex items-center justify-between gap-2">
@@ -479,7 +499,7 @@
                 <span class="text-lime-300/90">последний отряд</span>
               </div>
               <span class="text-[10px] text-emerald-900 uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-emerald-300 border border-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.7)]">
-                доступно на всех площадках
+                доступна на всех площадках
               </span>
             </div>
             <p class="text-[12px] text-lime-100">
@@ -562,8 +582,8 @@
 
           <div class="mb-5 flex flex-wrap items-center gap-4 text-sm">
             <div class="text-2xl font-black text-lime-400">
-              5000 ₽
-              <span class="block text-[10px] text-slate-400 font-normal uppercase tracking-[0.25em]">фикс за трек</span>
+              2500 ₽
+              <span class="block text-[10px] text-slate-400 font-normal uppercase tracking-[0.25em]">со скидкой 50% · фикс за трек</span>
             </div>
             <ul class="text-[11px] text-slate-300 space-y-1">
               <li>— текст под тебя</li>
@@ -710,7 +730,7 @@
         const idea = formData.get('idea')?.toString().trim() || 'Без описания';
         const fast = formData.get('fast') === 'on';
 
-        const text = `Заявка на заказ песни\n\nИмя: ${name}\nКонтакт: ${contact}\nНужно быстрее обычного: ${fast ? 'да' : 'нет'}\n\nИдея трека:\n${idea}\n\nСтоимость: 5000 ₽ (фикс за трек)`;
+        const text = `Заявка на заказ песни\n\nИмя: ${name}\nКонтакт: ${contact}\nНужно быстрее обычного: ${fast ? 'да' : 'нет'}\n\nИдея трека:\n${idea}\n\nСтоимость: 2500 ₽ (со скидкой 50%, фикс за трек)`;
 
         // показываем тост с текстом заявки
         showToast(text);
