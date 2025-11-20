@@ -267,6 +267,67 @@
       pointer-events: none;
       z-index: 5;
     }
+
+    /* Punk widget styles */
+    .punk-card {
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(15,23,42,0.97));
+      border-radius: 1.75rem;
+      border: 1.5px solid rgba(248,250,252,0.16);
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(15,23,42,0.9),
+        0 25px 80px rgba(0,0,0,0.85);
+    }
+
+    .punk-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      background:
+        conic-gradient(from 160deg, rgba(248,250,252,0.2), transparent 18%, transparent 40%, rgba(248,113,113,0.45), transparent 58%, rgba(94,234,212,0.4), transparent 82%, rgba(244,244,245,0.2));
+      mix-blend-mode: soft-light;
+      opacity: 0.28;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .punk-bar {
+      background-image:
+        repeating-linear-gradient(90deg, rgba(248,250,252,0.4) 0, rgba(248,250,252,0.4) 1px, transparent 1px, transparent 4px);
+    }
+
+    .punk-label {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-size: 0.6rem;
+    }
+
+    .punk-title {
+      font-family: 'Impact', 'Anton', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .punk-tag {
+      border: 1px solid rgba(248,250,252,0.35);
+      background: radial-gradient(circle at top left, rgba(248,250,252,0.12), rgba(15,23,42,0.9));
+    }
+
+    .punk-glow {
+      box-shadow: 0 0 25px rgba(236,72,153,0.6);
+    }
+
+    .punk-noise {
+      position: absolute;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+      opacity: 0.5;
+    }
   </style>
 </head>
 <body class="text-slate-50 font-mono antialiased text-[16px] sm:text-[17px]">
@@ -366,7 +427,7 @@
     <!-- Music / Widget section -->
     <section id="music" class="pb-16">
       <div class="flex items-baseline justify-between mb-6">
-        <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-[0.2em] text-slate-100">виджет треков</h2>
+        <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-[0.2em] text-slate-100">ТРЕКИ</h2>
         <span class="text-[10px] uppercase tracking-[0.25em] text-slate-500">слушай громко</span>
       </div>
 
@@ -385,7 +446,6 @@
                   <span class="inline-flex -rotate-6 px-2 py-0.5 rounded bg-[var(--punk-yellow)] text-slate-950 text-xs font-black tracking-[0.18em]">PUNK</span>
                   <span>отбитые парни</span>
                 </h3>
-                
               </div>
 
               <div class="flex flex-col items-end gap-2">
@@ -776,6 +836,31 @@
 
         // открываем страницу ВКонтакте с формой сообщения
         window.open(vkUrl, '_blank');
+      });
+    }
+
+    // Toggle Yandex Music widget
+    const toggleYmBtn = document.getElementById('toggle-ym');
+    const ymContainer = document.getElementById('ym-container');
+    const toggleYmLabel = document.getElementById('toggle-ym-label');
+    const toggleYmIcon = document.getElementById('toggle-ym-icon');
+
+    if (toggleYmBtn && ymContainer && toggleYmLabel && toggleYmIcon) {
+      let ymExpanded = true;
+
+      toggleYmBtn.addEventListener('click', () => {
+        ymExpanded = !ymExpanded;
+        if (ymExpanded) {
+          ymContainer.style.maxHeight = '520px';
+          ymContainer.style.opacity = '1';
+          toggleYmLabel.textContent = 'СВЕРНУТЬ ПЛЕЕР';
+          toggleYmIcon.textContent = '−';
+        } else {
+          ymContainer.style.maxHeight = '0px';
+          ymContainer.style.opacity = '0';
+          toggleYmLabel.textContent = 'РАЗВЕРНУТЬ ПЛЕЕР';
+          toggleYmIcon.textContent = '+';
+        }
       });
     }
 
