@@ -9,6 +9,10 @@
   <style>
     :root {
       color-scheme: dark;
+      --punk-pink: #ff2d92;
+      --punk-yellow: #ffe347;
+      --punk-green: #4ade80;
+      --punk-red: #f97373;
     }
 
     body {
@@ -359,87 +363,109 @@
       </div>
     </section>
 
-    <!-- Music section -->
+    <!-- Music / Widget section -->
     <section id="music" class="pb-16">
       <div class="flex items-baseline justify-between mb-6">
-        <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-[0.2em] text-slate-100">релизы</h2>
+        <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-[0.2em] text-slate-100">виджет треков</h2>
         <span class="text-[10px] uppercase tracking-[0.25em] text-slate-500">слушай громко</span>
       </div>
 
+      <div class="max-w-4xl mx-auto">
+        <section class="punk-card">
+          <div class="punk-noise"></div>
 
-      <div class="grid md:grid-cols-3 gap-6">
-        <article class="relative overflow-hidden rounded-xl border border-slate-700/80 bg-gradient-to-br from-slate-950/90 via-slate-900/90 to-slate-950/90 p-[1.5px] shadow-[0_18px_45px_rgba(0,0,0,0.7)] card-hover before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_0_0,rgba(74,222,128,0.42),transparent_55%),radial-gradient(circle_at_100%_0,rgba(248,113,113,0.38),transparent_52%)] before:opacity-60 before:mix-blend-screen">
-          <div class="relative h-full rounded-[0.75rem] bg-slate-950/80 border border-slate-800/80 px-4 py-4 flex flex-col gap-3">
-          <header class="flex items-center justify-between gap-3 mb-3">
-            <div>
-              <h3 class="text-sm uppercase tracking-[0.18em] text-slate-100">
-                <span class="glitch" data-text="Бал проклятых теней">Бал проклятых теней</span>
-              </h3>
-              <p class="text-[11px] text-slate-400">Яндекс Музыка · отбитые парни</p>
+          <header class="relative px-4 sm:px-6 pt-6 pb-4 border-b border-slate-800/80">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div class="space-y-1.5">
+                <p class="punk-label text-[10px] text-slate-300/80 flex items-center gap-3">
+                  <span class="inline-flex h-[9px] w-[9px] rounded-[3px] bg-lime-400 shadow-[0_0_10px_rgba(190,242,100,0.9)]"></span>
+                  LIVE PUNK SESSION
+                </p>
+                <h3 class="punk-title text-2xl sm:text-3xl text-slate-50 drop-shadow-[0_0_12px_rgba(248,250,252,0.6)] flex items-center gap-3">
+                  <span class="inline-flex -rotate-6 px-2 py-0.5 rounded bg-[var(--punk-yellow)] text-slate-950 text-xs font-black tracking-[0.18em]">PUNK</span>
+                  <span>отбитые парни</span>
+                </h3>
+                
+              </div>
+
+              <div class="flex flex-col items-end gap-2">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full punk-tag text-[10px] text-slate-100/90 uppercase tracking-[0.2em]">
+                  <span class="h-1 w-1 rounded-full bg-[var(--punk-pink)] shadow-[0_0_8px_rgba(244,114,182,0.9)]"></span>
+                  <span>yandex music</span>
+                </div>
+                <button
+                  id="toggle-ym"
+                  class="relative shrink-0 inline-flex items-center gap-2 rounded-full border border-slate-100/60 px-3.5 py-1.5 text-[11px] font-semibold text-slate-900 bg-[var(--punk-yellow)] hover:bg-white active:scale-[0.96] transition shadow-[0_8px_25px_rgba(248,250,252,0.35)] group overflow-hidden">
+                  <span class="absolute inset-0 bg-gradient-to-r from-[var(--punk-pink)]/0 via-[var(--punk-pink)]/35 to-[var(--punk-pink)]/0 opacity-0 group-hover:opacity-100 transition"></span>
+                  <span id="toggle-ym-icon" class="relative text-base leading-none translate-y-[1px]">−</span>
+                  <span id="toggle-ym-label" class="relative tracking-[0.16em]">СВЕРНУТЬ ПЛЕЕР</span>
+                </button>
+              </div>
             </div>
-            <a id="track1Link" href="https://music.yandex.ru/album/39011117" target="_blank" rel="noopener noreferrer" class="text-[10px] uppercase tracking-[0.25em] text-lime-300 hover:text-lime-200 link-underline">слушать</a>
           </header>
-          <div class="text-[11px] text-slate-300 space-y-2">
-            <p>
-              «Бал проклятых теней» — мрачный танец на обломках иллюзий. Гитары, которые режут, и припев, который не отпускает до самого конца трека.
-            </p>
-            <ul class="flex flex-wrap gap-2 text-[10px] text-slate-400">
-              <li class="px-2 py-0.5 border border-slate-700 rounded-sm">тёмный панк</li>
-              <li class="px-2 py-0.5 border border-slate-700 rounded-sm">тяжёлые гитары</li>
-              <li class="px-2 py-0.5 border border-slate-700 rounded-sm">липкий припев</li>
-            </ul>
-          </div>
-        </article>
 
-        <article class="border border-slate-800 bg-slate-950/70 rounded-md p-4 card-hover">
-          <header class="flex items-center justify-between gap-3 mb-3">
-            <div>
-              <h3 class="text-sm uppercase tracking-[0.18em] text-slate-100">
-                <span class="glitch" data-text="Бал проклятых теней: Возвращение">
-                  Бал проклятых теней: <span class="text-red-400 drop-shadow-[0_0_10px_rgba(248,113,113,0.9)]">Возвращение</span>
+          <div id="ym-container" class="transition-[max-height,opacity] duration-300 ease-out" style="max-height: 520px; opacity: 1;">
+
+            <div class="relative bg-black/70 border-y border-slate-800 overflow-hidden">
+              <div class="absolute inset-0 pointer-events-none opacity-60 mix-blend-soft-light" aria-hidden="true">
+                <div class="w-full h-full punk-bar"></div>
+              </div>
+
+              <iframe
+                title="Плеер Яндекс.Музыки"
+                src="https://music.yandex.ru/iframe/#artist/24977441"
+                frameborder="0"
+                class="w-full relative z-[1] punk-glow"
+                style="height: 320px; border: 0;">
+              </iframe>
+
+              <div class="relative z-[1] px-4 sm:px-6 py-3 border-t border-slate-800/80 text-[10px] sm:text-[11px] text-slate-300 bg-slate-950/80 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--punk-pink)] text-slate-950 text-xs font-black">YM</span>
+                  <span class="uppercase tracking-[0.22em] text-[9px] text-slate-300/90">Источник: Яндекс.Музыка</span>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <a
+                    href="https://music.yandex.ru/artist/24977441"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-slate-600/80 bg-slate-900/80 text-[10px] text-slate-100 hover:border-[var(--punk-yellow)] hover:text-[var(--punk-yellow)] transition">
+                    <span>Открыть артиста в Яндекс.Музыке</span>
+                    <span class="text-xs">↗</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <footer class="px-4 sm:px-6 py-4 text-[10px] sm:text-[11px] text-slate-300/80 flex items-center justify-between gap-2 bg-slate-950/90">
+            <div class="flex items-center gap-3">
+              <span class="relative inline-flex h-5 w-5 items-center justify-center">
+                <span class="absolute inset-0 rounded-sm bg-gradient-to-tr from-[var(--punk-pink)] via-[var(--punk-yellow)] to-[var(--punk-green)] animate-pulse"></span>
+                <span class="relative h-[11px] w-[11px] border border-slate-950 bg-slate-950 rotate-6"></span>
+              </span>
+              <span class="relative inline-flex items-center px-3 py-1 rounded-full overflow-hidden border border-slate-700/80 bg-slate-900/80">
+                <span class="absolute inset-0 bg-gradient-to-r from-[var(--punk-pink)] via-[var(--punk-yellow)] to-[var(--punk-green)] opacity-40 blur-[1px] animate-pulse"></span>
+                <span class="relative font-black uppercase tracking-[0.28em] text-[9px] text-slate-100 drop-shadow-[0_0_8px_rgba(250,250,250,0.5)]">
+                  ВКЛЮЧАЙ ГРОМКОСТЬ НА МАКСИМУМ
                 </span>
-              </h3>
-              <p class="text-[11px] text-slate-400">Яндекс Музыка · отбитые парни</p>
+              </span>
             </div>
-            <a id="track2Link" href="https://music.yandex.ru/album/39098328" target="_blank" rel="noopener noreferrer" class="text-[10px] uppercase tracking-[0.25em] text-orange-300 hover:text-orange-200 link-underline">слушать</a>
-          </header>
-          <div class="text-[11px] text-slate-300 space-y-2">
-            <p>
-              «Бал проклятых теней: Возвращение» — вторая волна тьмы. Жёстче, злее и ещё более прямолинейно про то, как чудовища в голове выходят на свет.
-            </p>
-            <ul class="flex flex-wrap gap-2 text-[10px] text-slate-400">
-              <li class="px-2 py-0.5 border border-slate-700 rounded-sm">сиквел трека</li>
-              <li class="px-2 py-0.5 border border-slate-700 rounded-sm">жёсткий вайб</li>
-              <li class="px-2 py-0.5 border border-slate-700 rounded-sm">тяжёлый воздух</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="border border-slate-800 bg-slate-950/70 rounded-md p-4 card-hover">
-          <header class="flex items-center justify-between gap-3 mb-3">
-            <div>
-              <h3 class="text-sm uppercase tracking-[0.18em] text-slate-100">Последний отряд</h3>
-              <p class="text-[11px] text-slate-400">Яндекс Музыка · отбитые парни</p>
-            </div>
-            <a id="track3Link" href="https://music.yandex.ru/album/39172005" target="_blank" rel="noopener noreferrer" class="text-[10px] uppercase tracking-[0.25em] text-red-300 hover:text-red-200 link-underline">слушать</a>
-          </header>
-          <div class="text-[11px] text-slate-300 space-y-2">
-            <p>
-              «Последний отряд» — боевой гимн для тех, кто до конца стоит за своё и не сдаётся, даже когда город выгорает до основания.
-            </p>
-            <ul class="flex flex-wrap gap-2 text-[10px] text-slate-400">
-              <li class="px-2 py-0.5 border border-slate-700 rounded-sm">боевой панк-гимн</li>
-              <li class="px-2 py-0.5 border border-slate-700 rounded-sm">хор в припеве</li>
-              <li class="px-2 py-0.5 border border-slate-700 rounded-sm">подпевают все</li>
-            </ul>
-          </div>
-        </article>
+          </footer>
+        </section>
       </div>
 
-
-      <div class="mt-6 text-[11px] text-slate-400 max-w-xl">
-        * Ссылки ведут на Яндекс Музыку. Открывай, подписывайся, добавляй треки
-        в плейлисты — это помогает нам записывать ещё больше шума.
+      <div class="mt-6 max-w-xl text-[11px] text-slate-300">
+        <span class="inline-flex items-center gap-2 px-2 py-1 rounded-sm border border-pink-500/70 bg-pink-500/10 text-[9px] uppercase tracking-[0.26em] text-pink-300 mr-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse"></span>
+          плеер яндекс музыки
+        </span>
+        <span class="font-medium text-slate-100">
+          Врубай, подписывайся, добавляй треки в плейлисты —
+          <span class="text-lime-300 font-bold underline decoration-wavy decoration-lime-400/70 underline-offset-[3px]">
+            это помогает нам записывать ещё больше шума
+          </span>.
+        </span>
       </div>
     </section>
 
