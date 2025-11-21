@@ -288,7 +288,6 @@
       <nav class="hidden sm:flex gap-6 text-sm sm:text-base uppercase tracking-[0.3em] text-slate-300">
         <button id="navNews" type="button" class="hover:text-yellow-300 transition-colors link-underline">НОВОСТИ</button>
         <a href="#music" class="hover:text-lime-400 transition-colors link-underline">ТРЕКИ</a>
-        <button id="navReviews" type="button" class="hover:text-red-400 transition-colors link-underline">ОТЗЫВЫ</button>
         <a href="#order" class="hover:text-orange-400 transition-colors link-underline">ЗАКАЗ ПЕСЕН</a>
         <a href="#contacts" class="hover:text-pink-400 transition-colors link-underline">КОНТАКТЫ</a>
       </nav>
@@ -604,69 +603,6 @@
       </div>
     </section>
 
-    <!-- Reviews section -->
-    <section id="reviews" class="pb-20 hidden">
-      <div class="flex items-baseline justify-between mb-4">
-        <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-[0.2em] text-slate-100 flex items-center gap-3">
-          <span class="inline-flex h-5 w-5 items-center justify-center rounded-sm border border-red-500/70 bg-red-500/20 text-[10px] tracking-[0.25em] text-red-300">RX</span>
-          <span>отзывы</span>
-        </h2>
-        <span class="text-[10px] uppercase tracking-[0.25em] text-slate-500">что говорят про шум</span>
-      </div>
-
-      <div class="grid lg:grid-cols-[3fr,2fr] gap-6 items-start">
-        <!-- List of reviews -->
-        <div class="relative border border-slate-800 bg-slate-950/90 rounded-xl p-4 sm:p-5 overflow-hidden">
-          <div class="pointer-events-none absolute -inset-1 opacity-40 mix-blend-soft-light" aria-hidden="true">
-            <div class="h-full w-full bg-[radial-gradient(circle_at_0_0,rgba(248,113,113,0.45),transparent_55%),radial-gradient(circle_at_100%_100%,rgba(45,212,191,0.45),transparent_55%)]"></div>
-          </div>
-
-          <div class="relative flex items-center justify-between gap-3 mb-4">
-            <div class="inline-flex items-center gap-2 px-2 py-1 rounded-full border border-lime-400/70 bg-black/70 shadow-[0_0_20px_rgba(190,242,100,0.35)]">
-              <span class="w-1.5 h-1.5 rounded-full bg-lime-400 animate-pulse"></span>
-              <span class="text-[10px] uppercase tracking-[0.25em] text-lime-300">живые отзывы</span>
-            </div>
-            <span class="inline-flex items-center gap-1 text-[10px] text-slate-400">
-              <span class="h-[6px] w-[6px] rotate-45 bg-pink-500"></span>
-              <span>обновляются каждый день</span>
-            </span>
-          </div>
-
-          <div id="reviewsList" class="relative space-y-3 text-[12px]"></div>
-        </div>
-
-        <!-- Form -->
-        <div class="relative border border-slate-800 bg-slate-950/90 rounded-xl p-4 sm:p-5 overflow-hidden">
-          <div class="pointer-events-none absolute inset-0 opacity-30 mix-blend-soft-light" aria-hidden="true">
-            <div class="h-full w-full bg-[repeating-linear-gradient(135deg,rgba(15,23,42,0.9)_0,rgba(15,23,42,0.9)_2px,rgba(248,250,252,0.06)_2px,rgba(248,250,252,0.06)_4px)]"></div>
-          </div>
-
-          <div class="relative mb-3 flex items-center justify-between gap-2">
-            <h3 class="text-[11px] uppercase tracking-[0.25em] text-slate-300 flex items-center gap-2">
-              <span class="inline-flex h-4 w-4 items-center justify-center rounded-[2px] border border-pink-500/70 bg-pink-500/20 text-[9px] text-pink-200">+</span>
-              <span>оставь свой комментарий</span>
-            </h3>
-            <span class="text-[10px] text-slate-500">анонимно и по‑панковски честно</span>
-          </div>
-
-          <form id="reviewForm" class="relative space-y-3 text-[13px]">
-            <label class="block">
-              <span class="text-[11px] uppercase tracking-[0.22em] text-slate-400">имя / ник</span>
-              <input name="author" type="text" class="mt-1 w-full bg-black/60 border border-slate-700 text-slate-100 text-xs px-3 py-2 rounded-sm focus:outline-none focus:border-lime-400 focus:bg-black" placeholder="как тебя подписать" />
-            </label>
-            <label class="block">
-              <span class="text-[11px] uppercase tracking-[0.22em] text-slate-400">отзыв</span>
-              <textarea name="text" rows="3" class="mt-1 w-full bg-black/60 border border-slate-700 text-slate-100 text-xs px-3 py-2 rounded-sm focus:outline-none focus:border-pink-500 focus:bg-black" placeholder="что думаешь о треках, лайвах или этом сайте"></textarea>
-            </label>
-            <p class="text-[10px] text-slate-500 mb-1">Отзывы живут у тебя в браузере. Никакой цензуры — только шум.</p>
-            <button type="submit" class="btn-punk w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-slate-600 bg-slate-900 px-5 py-2.5 uppercase tracking-[0.25em] text-[11px] text-slate-100 hover:border-lime-400">
-              <span>добавить отзыв</span>
-            </button>
-          </form>
-        </div>
-      </div>
-    </section>
-
     <!-- Order section -->
     <section id="order" class="pb-20">
       <div class="grid lg:grid-cols-[3fr,2fr] gap-8 items-start">
@@ -793,14 +729,11 @@
     const newsPageSection = document.getElementById('newsPage');
     const newsStubSection = document.getElementById('news');
     const navNewsBtn = document.getElementById('navNews');
-    const navReviewsBtn = document.getElementById('navReviews');
     const toggleYmBtn = document.getElementById('toggle-ym');
     const ymContainer = document.getElementById('ym-container');
     const toggleYmLabel = document.getElementById('toggle-ym-label');
     const toggleYmIcon = document.getElementById('toggle-ym-icon');
     const visitCounterEl = document.getElementById('visitCounter');
-    const reviewsListEl = document.getElementById('reviewsList');
-    const reviewFormEl = document.getElementById('reviewForm');
     let toastTimeout;
 
     // Открытие раздела новостей как отдельной "страницы"
@@ -808,19 +741,6 @@
       navNewsBtn.addEventListener('click', () => {
         newsPageSection.classList.remove('hidden');
         newsPageSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    }
-
-    // Переход к разделу отзывов по кнопке в навигации
-    if (navReviewsBtn) {
-      navReviewsBtn.addEventListener('click', () => {
-        const reviewsSection = document.getElementById('reviews');
-        if (reviewsSection) {
-          // показываем секцию, если скрыта
-          reviewsSection.classList.remove('hidden');
-          // плавно скроллим к началу блока отзывов
-          reviewsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
       });
     }
 
@@ -863,109 +783,6 @@
         window.open(vkUrl, '_blank');
       });
     }
-
-    // Reviews logic: базовые одинаковые отзывы + локальные добавленные
-    (function () {
-      if (!reviewsListEl) return;
-
-      const baseReviews = [
-        {
-          author: 'Михаил Кравцов',
-          text: 'Гитары как цепи, вокал как крик в подъезде. Это лучший панк, что я слышал за последнее время.',
-          createdAt: '2024-10-01',
-        },
-        {
-          author: 'Анастасия Н.',
-          text: 'Слушаю в 3 ночи, соседи стучат, но выключать не собираюсь. Так и должен звучать честный рок.',
-          createdAt: '2024-10-03',
-        },
-        {
-          author: 'Сергей Петров',
-          text: 'Спасибо за треки. Они звучат так, будто написаны именно под мои мысли.',
-          createdAt: '2024-10-05',
-        },
-        {
-          author: 'Елена',
-          text: 'Редко когда панк цепляет текстами. У вас получилось — и по музыке, и по смыслу.',
-          createdAt: '2024-10-07',
-        },
-        {
-          author: 'Игорь',
-          text: 'На лайве было мощно, а записи вообще не стыдно друзьям кидать. Жду новых релизов.',
-          createdAt: '2024-10-09',
-        },
-      ];
-
-      function formatDateLabel(iso) {
-        if (!iso) return '';
-        const d = new Date(iso);
-        if (Number.isNaN(d.getTime())) return '';
-        const today = new Date();
-        const oneDayMs = 24 * 60 * 60 * 1000;
-        const diffDays = Math.floor((today.setHours(0,0,0,0) - d.setHours(0,0,0,0)) / oneDayMs);
-        if (diffDays === 0) return 'сегодня';
-        if (diffDays === 1) return 'вчера';
-        return d.toLocaleDateString('ru-RU');
-      }
-
-      const sessionReviews = [];
-
-      function renderReviews() {
-        reviewsListEl.innerHTML = '';
-        const all = [...sessionReviews, ...baseReviews];
-
-        all.forEach((item) => {
-          const wrapper = document.createElement('div');
-          wrapper.className = 'border border-slate-700/80 bg-slate-900/70 rounded-md px-3 py-2.5';
-
-          const header = document.createElement('div');
-          header.className = 'flex items-center justify-between gap-2 mb-1.5';
-
-          const authorEl = document.createElement('span');
-          authorEl.className = 'text-[11px] font-semibold text-slate-100';
-          authorEl.textContent = item.author || 'аноним';
-
-          const dateEl = document.createElement('span');
-          dateEl.className = 'text-[10px] text-slate-500';
-          dateEl.textContent = formatDateLabel(item.createdAt);
-
-          header.appendChild(authorEl);
-          header.appendChild(dateEl);
-
-          const textEl = document.createElement('p');
-          textEl.className = 'text-[12px] text-slate-200';
-          textEl.textContent = item.text || '';
-
-          wrapper.appendChild(header);
-          wrapper.appendChild(textEl);
-          reviewsListEl.appendChild(wrapper);
-        });
-      }
-
-      // первый рендер с базовыми отзывами
-      renderReviews();
-
-      // Обработка формы: отзывы добавляются только в этой сессии браузера
-      if (reviewFormEl) {
-        reviewFormEl.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const formData = new FormData(reviewFormEl);
-          const author = (formData.get('author') || '').toString().trim() || 'аноним';
-          const text = (formData.get('text') || '').toString().trim();
-          if (!text) return;
-
-          const item = {
-            author,
-            text,
-            createdAt: new Date().toISOString(),
-          };
-
-          sessionReviews.unshift(item);
-          renderReviews();
-          reviewFormEl.reset();
-        });
-      }
-    })();
 
     // Toggle Yandex Music widget
     if (toggleYmBtn && ymContainer && toggleYmLabel && toggleYmIcon) {
