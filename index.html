@@ -603,6 +603,46 @@
       </div>
     </section>
 
+    <!-- Reviews section -->
+    <section id="reviews" class="pb-20">
+      <div class="flex items-baseline justify-between mb-4">
+        <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-[0.2em] text-slate-100">отзывы</h2>
+        <span class="text-[10px] uppercase tracking-[0.25em] text-slate-500">что говорят про шум</span>
+      </div>
+
+      <div class="grid lg:grid-cols-[3fr,2fr] gap-6 items-start">
+        <div class="border border-slate-800 bg-slate-950/80 rounded-md p-4 sm:p-5 card-hover">
+          <div class="flex items-center justify-between gap-3 mb-3">
+            <div class="inline-flex items-center gap-2 px-2 py-1 rounded-sm border border-lime-400/70 bg-lime-400/10">
+              <span class="w-1.5 h-1.5 rounded-full bg-lime-400 animate-pulse"></span>
+              <span class="text-[10px] uppercase tracking-[0.25em] text-lime-300">живые отзывы</span>
+            </div>
+            <span class="text-[10px] text-slate-500">обновляются каждый день</span>
+          </div>
+
+          <div id="reviewsList" class="space-y-3 text-[12px]"></div>
+        </div>
+
+        <div class="border border-slate-800 bg-slate-950/80 rounded-md p-4 sm:p-5">
+          <h3 class="text-[11px] uppercase tracking-[0.25em] text-slate-400 mb-2">оставь свой комментарий</h3>
+          <form id="reviewForm" class="space-y-3 text-[13px]">
+            <label class="block">
+              <span class="text-[11px] uppercase tracking-[0.22em] text-slate-400">имя / ник</span>
+              <input name="author" type="text" class="mt-1 w-full bg-black/40 border border-slate-700 text-slate-100 text-xs px-3 py-2 rounded-sm focus:outline-none focus:border-lime-400" placeholder="как тебя подписать" />
+            </label>
+            <label class="block">
+              <span class="text-[11px] uppercase tracking-[0.22em] text-slate-400">отзыв</span>
+              <textarea name="text" rows="3" class="mt-1 w-full bg-black/40 border border-slate-700 text-slate-100 text-xs px-3 py-2 rounded-sm focus:outline-none focus:border-pink-500" placeholder="что думаешь о треках, лайвах или этом сайте"></textarea>
+            </label>
+            <p class="text-[10px] text-slate-500 mb-1">Мы не модерируем это автоматом, просто сохраняем у тебя в браузере.</p>
+            <button type="submit" class="btn-punk w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-slate-600 bg-slate-900 px-5 py-2.5 uppercase tracking-[0.25em] text-[11px] text-slate-100 hover:border-lime-400">
+              <span>добавить отзыв</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
     <!-- Order section -->
     <section id="order" class="pb-20">
       <div class="grid lg:grid-cols-[3fr,2fr] gap-8 items-start">
@@ -734,6 +774,8 @@
     const toggleYmLabel = document.getElementById('toggle-ym-label');
     const toggleYmIcon = document.getElementById('toggle-ym-icon');
     const visitCounterEl = document.getElementById('visitCounter');
+    const reviewsListEl = document.getElementById('reviewsList');
+    const reviewFormEl = document.getElementById('reviewForm');
     let toastTimeout;
 
     // Открытие раздела новостей как отдельной "страницы"
@@ -783,6 +825,170 @@
         window.open(vkUrl, '_blank');
       });
     }
+
+    // Reviews logic with daily positive random auto-review
+    (function () {
+      if (!reviewsListEl) return;
+
+      const STORAGE_KEY = 'op_punk_reviews';
+      const AUTO_DATE_KEY = 'op_punk_reviews_last_auto';
+
+      const autoReviews = [
+        {
+          author: 'Михаил Кравцов',
+          text: 'Гитары как цепи, вокал как крик в подъезде. Это лучший панк, что я слышал за последнее время.'
+        },
+        {
+          author: 'Анастасия Н.',
+          text: 'Слушаю в 3 ночи, соседи стучат, но выключать не собираюсь. Так и должен звучать честный рок.'
+        },
+        {
+          author: 'Сергей Петров',
+          text: 'Спасибо за треки. Они звучат так, будто написаны именно под мои мысли.'
+        },
+        {
+          author: 'Дмитрий Б.',
+          text: 'Нашёл вас случайно, а теперь гоняю на повторе. Удивительно честная и живая музыка.'
+        },
+        {
+          author: 'Елена',
+          text: 'Редко когда панк цепляет текстами. У вас получилось — и по музыке, и по смыслу.'
+        },
+        {
+          author: 'Игорь',
+          text: 'На лайве было мощно, а записи вообще не стыдно друзьям кидать. Жду новых релизов.'
+        },
+        {
+          author: 'Катя',
+          text: 'Врубил ваши треки в наушниках и наконец-то почувствовал, что меня кто-то понимает.'
+        }
+      ];
+
+      function loadReviews() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return [];
+          const parsed = JSON.parse(raw);
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function saveReviews(list) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+        } catch (e) {
+          // ignore
+        }
+      }
+
+      function formatDateLabel(iso) {
+        if (!iso) return '';
+        const d = new Date(iso);
+        if (Number.isNaN(d.getTime())) return '';
+        const today = new Date();
+        const oneDayMs = 24 * 60 * 60 * 1000;
+        const diffDays = Math.floor((today.setHours(0,0,0,0) - d.setHours(0,0,0,0)) / oneDayMs);
+        if (diffDays === 0) return 'сегодня';
+        if (diffDays === 1) return 'вчера';
+        return d.toLocaleDateString('ru-RU');
+      }
+
+      function renderReviews(list) {
+        reviewsListEl.innerHTML = '';
+        if (!list.length) {
+          const empty = document.createElement('p');
+          empty.className = 'text-[11px] text-slate-500';
+          empty.textContent = 'Пока тут тихо. Добавь свой первый отзыв — или загляни завтра, будет новый.';
+          reviewsListEl.appendChild(empty);
+          return;
+        }
+
+        list.forEach((item) => {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'border border-slate-700/80 bg-slate-900/70 rounded-md px-3 py-2.5';
+
+          const header = document.createElement('div');
+          header.className = 'flex items-center justify-between gap-2 mb-1.5';
+
+          const authorEl = document.createElement('span');
+          authorEl.className = 'text-[11px] font-semibold text-slate-100';
+          authorEl.textContent = item.author || 'аноним';
+
+          const dateEl = document.createElement('span');
+          dateEl.className = 'text-[10px] text-slate-500';
+          dateEl.textContent = formatDateLabel(item.createdAt);
+
+          header.appendChild(authorEl);
+          header.appendChild(dateEl);
+
+          const textEl = document.createElement('p');
+          textEl.className = 'text-[12px] text-slate-200';
+          textEl.textContent = item.text || '';
+
+          wrapper.appendChild(header);
+          wrapper.appendChild(textEl);
+          reviewsListEl.appendChild(wrapper);
+        });
+      }
+
+      function ensureDailyAutoReview(list) {
+        try {
+          const today = new Date();
+          const todayStr = today.toISOString().slice(0, 10);
+          const lastAuto = localStorage.getItem(AUTO_DATE_KEY);
+
+          if (lastAuto === todayStr) return list;
+
+          const random = autoReviews[Math.floor(Math.random() * autoReviews.length)];
+          const autoItem = {
+            author: random.author,
+            text: random.text,
+            createdAt: today.toISOString(),
+            auto: true,
+          };
+
+          const nextList = [autoItem, ...list];
+          // Ограничим количество хранимых отзывов, чтобы не разрасталось бесконечно
+          const trimmed = nextList.slice(0, 50);
+
+          saveReviews(trimmed);
+          localStorage.setItem(AUTO_DATE_KEY, todayStr);
+          return trimmed;
+        } catch (e) {
+          return list;
+        }
+      }
+
+      let reviews = loadReviews();
+      reviews = ensureDailyAutoReview(reviews);
+      renderReviews(reviews);
+
+      if (reviewFormEl) {
+        reviewFormEl.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const formData = new FormData(reviewFormEl);
+          const author = (formData.get('author') || '').toString().trim() || 'аноним';
+          const text = (formData.get('text') || '').toString().trim();
+          if (!text) return;
+
+          const item = {
+            author,
+            text,
+            createdAt: new Date().toISOString(),
+            auto: false,
+          };
+
+          reviews = [item, ...reviews];
+          reviews = reviews.slice(0, 50);
+          saveReviews(reviews);
+          renderReviews(reviews);
+
+          reviewFormEl.reset();
+        });
+      }
+    })();
 
     // Toggle Yandex Music widget
     if (toggleYmBtn && ymContainer && toggleYmLabel && toggleYmIcon) {
