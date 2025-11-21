@@ -803,7 +803,7 @@
       });
     }
 
-    // Visit counter using localStorage (increments once per day)
+    // Visit counter using localStorage (increments by random amount once per day)
     (function () {
       if (!visitCounterEl) return;
       try {
@@ -820,7 +820,12 @@
 
         // Увеличиваем счётчик только если сегодня ещё не считали визит
         if (lastDate !== todayStr) {
-          count += 1;
+          // Случайное увеличение, например от 3 до 15 визитов за день
+          const min = 3;
+          const max = 15;
+          const randomIncrement = Math.floor(Math.random() * (max - min + 1)) + min;
+
+          count += randomIncrement;
           localStorage.setItem(COUNT_KEY, String(count));
           localStorage.setItem(DATE_KEY, todayStr);
         }
