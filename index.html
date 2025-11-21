@@ -864,62 +864,37 @@
       });
     }
 
-    // Reviews logic with daily positive random auto-review
+    // Reviews logic: базовые одинаковые отзывы + локальные добавленные
     (function () {
       if (!reviewsListEl) return;
 
-      const STORAGE_KEY = 'op_punk_reviews';
-      const AUTO_DATE_KEY = 'op_punk_reviews_last_auto';
-
-      const autoReviews = [
+      const baseReviews = [
         {
           author: 'Михаил Кравцов',
-          text: 'Гитары как цепи, вокал как крик в подъезде. Это лучший панк, что я слышал за последнее время.'
+          text: 'Гитары как цепи, вокал как крик в подъезде. Это лучший панк, что я слышал за последнее время.',
+          createdAt: '2024-10-01',
         },
         {
           author: 'Анастасия Н.',
-          text: 'Слушаю в 3 ночи, соседи стучат, но выключать не собираюсь. Так и должен звучать честный рок.'
+          text: 'Слушаю в 3 ночи, соседи стучат, но выключать не собираюсь. Так и должен звучать честный рок.',
+          createdAt: '2024-10-03',
         },
         {
           author: 'Сергей Петров',
-          text: 'Спасибо за треки. Они звучат так, будто написаны именно под мои мысли.'
-        },
-        {
-          author: 'Дмитрий Б.',
-          text: 'Нашёл вас случайно, а теперь гоняю на повторе. Удивительно честная и живая музыка.'
+          text: 'Спасибо за треки. Они звучат так, будто написаны именно под мои мысли.',
+          createdAt: '2024-10-05',
         },
         {
           author: 'Елена',
-          text: 'Редко когда панк цепляет текстами. У вас получилось — и по музыке, и по смыслу.'
+          text: 'Редко когда панк цепляет текстами. У вас получилось — и по музыке, и по смыслу.',
+          createdAt: '2024-10-07',
         },
         {
           author: 'Игорь',
-          text: 'На лайве было мощно, а записи вообще не стыдно друзьям кидать. Жду новых релизов.'
+          text: 'На лайве было мощно, а записи вообще не стыдно друзьям кидать. Жду новых релизов.',
+          createdAt: '2024-10-09',
         },
-        {
-          author: 'Катя',
-          text: 'Врубил ваши треки в наушниках и наконец-то почувствовал, что меня кто-то понимает.'
-        }
       ];
-
-      function loadReviews() {
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if (!raw) return [];
-          const parsed = JSON.parse(raw);
-          return Array.isArray(parsed) ? parsed : [];
-        } catch (e) {
-          return [];
-        }
-      }
-
-      function saveReviews(list) {
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-        } catch (e) {
-          // ignore
-        }
-      }
 
       function formatDateLabel(iso) {
         if (!iso) return '';
@@ -933,17 +908,13 @@
         return d.toLocaleDateString('ru-RU');
       }
 
-      function renderReviews(list) {
-        reviewsListEl.innerHTML = '';
-        if (!list.length) {
-          const empty = document.createElement('p');
-          empty.className = 'text-[11px] text-slate-500';
-          empty.textContent = 'Пока тут тихо. Добавь свой первый отзыв — или загляни завтра, будет новый.';
-          reviewsListEl.appendChild(empty);
-          return;
-        }
+      const sessionReviews = [];
 
-        list.forEach((item) => {
+      function renderReviews() {
+        reviewsListEl.innerHTML = '';
+        const all = [...sessionReviews, ...baseReviews];
+
+        all.forEach((item) => {
           const wrapper = document.createElement('div');
           wrapper.className = 'border border-slate-700/80 bg-slate-900/70 rounded-md px-3 py-2.5';
 
@@ -971,38 +942,10 @@
         });
       }
 
-      function ensureDailyAutoReview(list) {
-        try {
-          const today = new Date();
-          const todayStr = today.toISOString().slice(0, 10);
-          const lastAuto = localStorage.getItem(AUTO_DATE_KEY);
+      // первый рендер с базовыми отзывами
+      renderReviews();
 
-          if (lastAuto === todayStr) return list;
-
-          const random = autoReviews[Math.floor(Math.random() * autoReviews.length)];
-          const autoItem = {
-            author: random.author,
-            text: random.text,
-            createdAt: today.toISOString(),
-            auto: true,
-          };
-
-          const nextList = [autoItem, ...list];
-          // Ограничим количество хранимых отзывов, чтобы не разрасталось бесконечно
-          const trimmed = nextList.slice(0, 50);
-
-          saveReviews(trimmed);
-          localStorage.setItem(AUTO_DATE_KEY, todayStr);
-          return trimmed;
-        } catch (e) {
-          return list;
-        }
-      }
-
-      let reviews = loadReviews();
-      reviews = ensureDailyAutoReview(reviews);
-      renderReviews(reviews);
-
+      // Обработка формы: отзывы добавляются только в этой сессии браузера
       if (reviewFormEl) {
         reviewFormEl.addEventListener('submit', (e) => {
           e.preventDefault();
@@ -1015,14 +958,10 @@
             author,
             text,
             createdAt: new Date().toISOString(),
-            auto: false,
           };
 
-          reviews = [item, ...reviews];
-          reviews = reviews.slice(0, 50);
-          saveReviews(reviews);
-          renderReviews(reviews);
-
+          sessionReviews.unshift(item);
+          renderReviews();
           reviewFormEl.reset();
         });
       }
