@@ -288,6 +288,7 @@
       <nav class="hidden sm:flex gap-6 text-sm sm:text-base uppercase tracking-[0.3em] text-slate-300">
         <button id="navNews" type="button" class="hover:text-yellow-300 transition-colors link-underline">НОВОСТИ</button>
         <a href="#music" class="hover:text-lime-400 transition-colors link-underline">ТРЕКИ</a>
+        <button id="navReviews" type="button" class="hover:text-red-400 transition-colors link-underline">ОТЗЫВЫ</button>
         <a href="#order" class="hover:text-orange-400 transition-colors link-underline">ЗАКАЗ ПЕСЕН</a>
         <a href="#contacts" class="hover:text-pink-400 transition-colors link-underline">КОНТАКТЫ</a>
       </nav>
@@ -604,7 +605,7 @@
     </section>
 
     <!-- Reviews section -->
-    <section id="reviews" class="pb-20">
+    <section id="reviews" class="pb-20 hidden">
       <div class="flex items-baseline justify-between mb-4">
         <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-[0.2em] text-slate-100 flex items-center gap-3">
           <span class="inline-flex h-5 w-5 items-center justify-center rounded-sm border border-red-500/70 bg-red-500/20 text-[10px] tracking-[0.25em] text-red-300">RX</span>
@@ -792,6 +793,7 @@
     const newsPageSection = document.getElementById('newsPage');
     const newsStubSection = document.getElementById('news');
     const navNewsBtn = document.getElementById('navNews');
+    const navReviewsBtn = document.getElementById('navReviews');
     const toggleYmBtn = document.getElementById('toggle-ym');
     const ymContainer = document.getElementById('ym-container');
     const toggleYmLabel = document.getElementById('toggle-ym-label');
@@ -806,6 +808,19 @@
       navNewsBtn.addEventListener('click', () => {
         newsPageSection.classList.remove('hidden');
         newsPageSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    // Переход к разделу отзывов по кнопке в навигации
+    if (navReviewsBtn) {
+      navReviewsBtn.addEventListener('click', () => {
+        const reviewsSection = document.getElementById('reviews');
+        if (reviewsSection) {
+          // показываем секцию, если скрыта
+          reviewsSection.classList.remove('hidden');
+          // плавно скроллим к началу блока отзывов
+          reviewsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     }
 
