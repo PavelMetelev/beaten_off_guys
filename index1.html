@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Панк-рок поддержка</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    body {
+      background: radial-gradient(circle at top, #ff0059 0, #000000 45%, #111111 100%);
+      min-height: 100vh;
+    }
+
+    .punk-border {
+      border-image: repeating-linear-gradient(45deg, #facc15 0 6px, #22c55e 6px 12px, #e11d48 12px 18px, #38bdf8 18px 24px) 10;
+      border-width: 3px;
+      border-style: solid;
+    }
+
+    .punk-noise {
+      position: fixed;
+      pointer-events: none;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+      opacity: 0.4;
+      z-index: 0;
+    }
+
+    .punk-btn {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .punk-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(248, 250, 252, 0.25) 0 4px,
+        transparent 4px 8px
+      );
+      mix-blend-mode: screen;
+      opacity: 0;
+      transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+      transform: translateX(-20%);
+    }
+
+    .punk-btn:hover::before {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .shake {
+      animation: shake 0.35s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-3px); }
+      40% { transform: translateX(3px); }
+      60% { transform: translateX(-2px); }
+      80% { transform: translateX(2px); }
+    }
+  </style>
+</head>
+<body class="text-slate-50 font-mono flex items-center justify-center p-4">
+  <div class="punk-noise"></div>
+
+  <main class="relative z-10 max-w-xl w-full">
+    <header class="mb-6 text-center">
+      <h1 class="text-3xl md:text-4xl font-black tracking-widest uppercase text-fuchsia-400 drop-shadow-[0_0_10px_rgba(244,114,182,0.8)]">
+        отбитые парни
+      </h1>
+      <p class="mt-3 text-sm md:text-base text-slate-200">
+        Хочешь, чтобы сцена взорвалась? Пиши нам в поддержку, заказывай треки прямо в группу VK — разрулим хаос и включим твой саунд на полную.
+      </p>
+    </header>
+
+    <section class="punk-border bg-black/70 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-[0_0_25px_rgba(248,250,252,0.2)]">
+      <form id="supportForm" class="space-y-4">
+        <div>
+          <label for="name" class="block text-xs uppercase tracking-[0.2em] text-slate-300 mb-1">Имя (можно сценическое)</label>
+          <input
+            id="name"
+            type="text"
+            class="w-full bg-black/70 border border-fuchsia-500/60 focus:border-lime-400 focus:ring-0 rounded px-3 py-2 text-sm outline-none placeholder:text-slate-500"
+            placeholder="Анархай, ПанкРокер3000..."
+          />
+        </div>
+
+        <div>
+          <label for="topic" class="block text-xs uppercase tracking-[0.2em] text-slate-300 mb-1">Тема</label>
+          <input
+            id="topic"
+            type="text"
+            class="w-full bg-black/70 border border-fuchsia-500/60 focus:border-lime-400 focus:ring-0 rounded px-3 py-2 text-sm outline-none placeholder:text-slate-500"
+            placeholder="Оплата не прошла / баг / предложение / крик души"
+          />
+        </div>
+
+        <div>
+          <label for="message" class="block text-xs uppercase tracking-[0.2em] text-slate-300 mb-1">Сообщение</label>
+          <textarea
+            id="message"
+            rows="4"
+            class="w-full bg-black/70 border border-fuchsia-500/60 focus:border-lime-400 focus:ring-0 rounded px-3 py-2 text-sm outline-none placeholder:text-slate-500 resize-y min-h-[120px]"
+            placeholder="Опиши проблему, добавь ссылки, скрины (если есть) и всё, что поможет нам разнести баг."
+            required
+          ></textarea>
+          <p id="errorText" class="mt-1 text-xs text-red-400 hidden">Нужен хотя бы один боевой крик — напиши сообщение.</p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3 justify-between mt-4">
+          <button
+            type="submit"
+            id="sendBtn"
+            class="punk-btn inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-lime-400 text-black text-xs md:text-sm font-black uppercase tracking-[0.25em] shadow-[0_0_20px_rgba(190,242,100,0.8)] hover:bg-white active:translate-y-[1px] transition-transform"
+          >
+            <span>НАПИСАТЬ В ПОДДЕРЖКУ</span>
+            <span class="text-base">➤</span>
+          </button>
+          <p class="text-[10px] text-slate-400 max-w-xs leading-snug">
+            Нажатие сотрясёт VK: мы откроем диалог с нашей группой, а текст из формы сразу прилетит в сообщение.
+          </p>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const form = document.getElementById('supportForm');
+      const messageEl = document.getElementById('message');
+      const nameEl = document.getElementById('name');
+      const topicEl = document.getElementById('topic');
+      const errorText = document.getElementById('errorText');
+      const sendBtn = document.getElementById('sendBtn');
+
+      function buildVkUrl(text) {
+        const base = 'https://vk.com/im';
+        const params = new URLSearchParams({
+          sel: '-230126569',
+          entrypoint: 'community_page',
+          message: text,
+        });
+        return base + '?' + params.toString();
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const rawMessage = (messageEl.value || '').trim();
+        if (!rawMessage) {
+          errorText.classList.remove('hidden');
+          messageEl.classList.add('border-red-500');
+          form.classList.remove('shake');
+          // перезапуск анимации
+          void form.offsetWidth;
+          form.classList.add('shake');
+          return;
+        }
+
+        errorText.classList.add('hidden');
+        messageEl.classList.remove('border-red-500');
+
+        const name = (nameEl.value || '').trim();
+        const topic = (topicEl.value || '').trim();
+
+        let finalText = '';
+
+        if (name) {
+          finalText += `Имя/ник: ${name}\n`;
+        }
+        if (topic) {
+          finalText += `Тема: ${topic}\n`;
+        }
+
+        if (finalText) {
+          finalText += '\n';
+        }
+
+        finalText += 'Сообщение: ' + rawMessage + '\n\n';
+        finalText += '---\nОтправлено через панк-рок виджет поддержки на сайте.';
+
+        const vkUrl = buildVkUrl(finalText);
+
+        sendBtn.disabled = true;
+        sendBtn.classList.add('opacity-80');
+
+        window.location.href = vkUrl;
+
+        setTimeout(() => {
+          sendBtn.disabled = false;
+          sendBtn.classList.remove('opacity-80');
+        }, 2000);
+      });
+
+      messageEl.addEventListener('input', () => {
+        if (messageEl.value.trim()) {
+          errorText.classList.add('hidden');
+          messageEl.classList.remove('border-red-500');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
