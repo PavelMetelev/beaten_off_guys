@@ -536,6 +536,26 @@
       </div>
     </section>
 
+    <!-- Countdown widget -->
+    <section id="countdown" class="pb-6">
+      <div class="max-w-4xl mx-auto">
+        <div class="border border-pink-500/70 bg-pink-500/10 rounded-md px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 card-hover">
+          <div class="text-xs sm:text-sm text-slate-100">
+            <p class="uppercase tracking-[0.25em] text-[9px] text-pink-300 mb-1">обратный отсчёт</p>
+            <p class="font-semibold text-pink-200">до конца акции осталось:</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div id="countdown-timer" class="text-lg sm:text-2xl font-black text-pink-300 tracking-[0.2em]">
+              39:00:00:00
+            </div>
+            <div class="text-[9px] uppercase tracking-[0.2em] text-slate-400 text-right">
+              <div>дни : часы : минуты : секунды</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- News section (stub for anchor) -->
     <section id="news" class="pb-4"></section>
 
@@ -552,13 +572,13 @@
         <div id="newsList" class="space-y-6 text-sm text-slate-200">
           <div class="space-y-4">
           <!-- News sale: скидка 50% на заказ песен -->
-          <article class="border border-pink-500/80 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 rounded-md px-4 py-4 flex flex-col gap-3 card-hover shadow-[0_0_25px_rgба(244,114,182,0.45)]">
+          <article id="sale-article" class="border border-pink-500/80 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 rounded-md px-4 py-4 flex flex-col gap-3 card-hover shadow-[0_0_25px_rgба(244,114,182,0.45)]">
             <div class="flex flex-wrap items-center justify-between gap-3">
               <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em]">
                 <span class="inline-flex items-center justify-center px-2 py-1 border border-pink-400 rounded-sm bg-pink-500 text-black font-bold">АКЦИЯ</span>
                 <span class="text-пинк-200/90">скидка 50% на заказ песен</span>
               </div>
-              <span class="text-[10px] uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-black/60 border border-lime-400/80 text-lime-300 shadow-[0_0_16px_rgба(190,242,100,0.65)]">
+              <span id="sale-timer" class="text-[10px] uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-black/60 border border-lime-400/80 text-lime-300 shadow-[0_0_16px_rgба(190,242,100,0.65)]">
                 до 1 января включительно
               </span>
             </div>
@@ -602,7 +622,7 @@
                 <span class="text-lime-300/90">последний отряд</span>
               </div>
               <span class="text-[10px] text-emerald-900 uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-emerald-300 border border-emerald-500 shadow-[0_0_12px_rgба(16,185,129,0.7)]">
-                доступно на всех площадках
+                доступна на всех площадках
               </span>
             </div>
             <p class="text-[12px] text-lime-100">
@@ -797,6 +817,7 @@
 
   <script>
     const scrollToOrderBtn = document.getElementById('scrollToOrder');
+    const countdownEl = document.getElementById('countdown-timer');
     const orderSection = document.getElementById('order');
     const orderForm = document.getElementById('orderForm');
     const toast = document.getElementById('toast');
@@ -824,6 +845,39 @@
         orderSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     }
+
+    // Countdown widget logic (39 days from first load)
+    (function () {
+      if (!countdownEl) return;
+      const STORAGE_KEY = 'op_punk_countdown_start';
+      const now = Date.now();
+      let start = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+      if (!start || Number.isNaN(start)) {
+        start = now;
+        try {
+          localStorage.setItem(STORAGE_KEY, String(start));
+        } catch (e) {}
+      }
+      const durationMs = 39 * 24 * 60 * 60 * 1000; // 39 дней
+
+      function updateCountdown() {
+        const current = Date.now();
+        let remaining = start + durationMs - current;
+        if (remaining < 0) remaining = 0;
+
+        const totalSeconds = Math.floor(remaining / 1000);
+        const days = Math.floor(totalSeconds / (24 * 60 * 60));
+        const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        const pad = (n) => n.toString().padStart(2, '0');
+        countdownEl.textContent = `${pad(days)}:${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    })();
 
     function showToast(message) {
       if (!toast) return;
@@ -987,6 +1041,8 @@
         initFlakes();
       });
     })();
+
+
   </script>
 </body>
 </html>
