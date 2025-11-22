@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>отбитые парни — панк рок</title>
-  <meta name="description" content="Панк рок группа &quot;отбитые парни&quot;. Слушай релизы, заказывай песни под ключ за 5000 ₽. ВКонтакте: beaten_off_guys." />
+  <meta name="description" content="Панк рок группа &quot;отбитые парни&quot;. Слушай релизы, заказывай песни под ключ за 2500 ₽. ВКонтакте: beaten_off_guys." />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <style>
     :root {
@@ -221,7 +221,7 @@
     .member-name {
       position: relative;
       display: inline-block;
-      transition: transform 0.15s ease-out, text-shadow 0.15s.ease-out;
+      transition: transform 0.15s ease-out, text-shadow 0.15s ease-out;
     }
 
     .member-name::before,
@@ -266,6 +266,69 @@
       inset: 0;
       pointer-events: none;
       z-index: 5;
+    }
+
+    /* Punk card base styles for music block */
+    .punk-card {
+      position: relative;
+      border-radius: 0.375rem;
+      border: 1px solid rgba(51, 65, 85, 0.85);
+      background: radial-gradient(circle at top left, rgba(94, 234, 212, 0.12), transparent 55%),
+                  radial-gradient(circle at top right, rgba(248, 113, 113, 0.12), transparent 55%),
+                  linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(0, 0, 0, 0.98));
+      box-shadow:
+        0 20px 60px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      overflow: hidden;
+    }
+
+    .punk-noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.18;
+      background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"%3E%3Cfilter id="n" x="0" y="0" width="100%25" height="100%25"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="noStitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)" opacity="0.7"/%3E%3C/svg%3E');
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    .punk-label {
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+
+    .punk-title {
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .punk-tag {
+      background: radial-gradient(circle at 0 0, rgba(251, 191, 36, 0.8), transparent 60%),
+                  radial-gradient(circle at 100% 0, rgba(236, 72, 153, 0.7), transparent 60%),
+                  linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(24, 24, 27, 0.95));
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.8);
+    }
+
+    .punk-bar {
+      background-image:
+        linear-gradient(
+          90deg,
+          rgba(15, 23, 42, 0.98) 0,
+          rgba(248, 250, 252, 0.12) 10%,
+          rgba(15, 23, 42, 0.98) 20%
+        );
+      background-size: 160px 100%;
+      animation: moveBar 1.8s linear infinite;
+    }
+
+    @keyframes moveBar {
+      0% { background-position: -160px 0; }
+      100% { background-position: 160px 0; }
+    }
+
+    .punk-glow {
+      box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 1),
+        0 0 35px rgba(190, 242, 100, 0.22);
     }
   </style>
 </head>
@@ -483,17 +546,19 @@
           <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-[0.25em] bg-gradient-to-r from-yellow-300 via-orange-400 to-pink-500 bg-clip-text text-transparent drop-shadow-[0_0_18px_rgba(250,250,250,0.6)]">
             все новости группы
           </h2>
+          <button id="closeNews" class="text-[10px] uppercase tracking-[0.25em] text-slate-400 hover:text-slate-100 link-underline">закрыть</button>
         </div>
 
-        <div class="space-y-4">
+        <div id="newsList" class="space-y-6 text-sm text-slate-200">
+          <div class="space-y-4">
           <!-- News sale: скидка 50% на заказ песен -->
-          <article class="border border-pink-500/80 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 rounded-md px-4 py-4 flex flex-col gap-3 card-hover shadow-[0_0_25px_rgba(244,114,182,0.45)]">
+          <article class="border border-pink-500/80 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 rounded-md px-4 py-4 flex flex-col gap-3 card-hover shadow-[0_0_25px_rgба(244,114,182,0.45)]">
             <div class="flex flex-wrap items-center justify-between gap-3">
               <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em]">
                 <span class="inline-flex items-center justify-center px-2 py-1 border border-pink-400 rounded-sm bg-pink-500 text-black font-bold">АКЦИЯ</span>
-                <span class="text-pink-200/90">скидка 50% на заказ песен</span>
+                <span class="text-пинк-200/90">скидка 50% на заказ песен</span>
               </div>
-              <span class="text-[10px] uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-black/60 border border-lime-400/80 text-lime-300 shadow-[0_0_16px_rgba(190,242,100,0.65)]">
+              <span class="text-[10px] uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-black/60 border border-lime-400/80 text-lime-300 shadow-[0_0_16px_rgба(190,242,100,0.65)]">
                 до 1 января включительно
               </span>
             </div>
@@ -506,26 +571,26 @@
             </p>
           </article>
 
-          <!-- News 0: Резонанс тишины анонс -->
-          <article class="border border-yellow-400/80 bg-yellow-400/10 rounded-md px-4 py-3 flex flex-col gap-3 card-hover">
+          <!-- News 0: Резонанс тишины релиз (зелёный блок как у "последнего отряда") -->
+          <article class="border border-lime-500/80 bg-lime-500/10 rounded-md px-4 py-3 flex flex-col gap-3 card-hover">
             <div class="flex items-center justify-between gap-2">
-              <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-yellow-200">
-                <span class="inline-flex items-center justify-center px-2 py-1 border border-yellow-300 rounded-sm bg-yellow-400 text-black font-bold">АНОНС</span>
-                <span class="text-yellow-200/90">резонанс тишины</span>
+              <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-lime-200">
+                <span class="inline-flex items-center justify-center px-2 py-1 border border-lime-300 rounded-sm bg-lime-400 text-black font-bold">РЕЛИЗ</span>
+                <span class="text-lime-300/90">резонанс тишины</span>
               </div>
-              <span class="text-[10px] text-yellow-900 uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-yellow-300 border border-yellow-500 shadow-[0_0_12px_rgba(250,204,21,0.7)]">
-                релиз 22.11.2025
+              <span class="text-[10px] text-emerald-900 uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-emerald-300 border border-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.7)]">
+                доступно на всех площадках
               </span>
             </div>
-            <p class="text-[12px] text-yellow-50">
-              Скоро выходит наш новый трек <span class="font-semibold text-yellow-200">«резонанс тишины»</span> — грязный, прямой и громкий панк про то, как ломать рамки, которые тебе навязали.
+            <p class="text-[12px] text-lime-100">
+              Наш трек <span class="font-semibold text-lime-300">«резонанс тишины»</span> уже вышел — грязный, прямой и громкий панк про то, как ломать рамки, которые тебе навязали.
             </p>
-            <p class="text-[12px] text-yellow-50">
-              Официальная дата выхода: <span class="font-semibold text-yellow-200">22.11.2025</span>.
+            <p class="text-[12px] text-lime-100">
+              Трек доступен на всех стриминговых площадках: врубай погромче, добавляй в свои плейлисты и делись с теми, кому срочно нужен шум в голове.
             </p>
-            <p class="text-[12px] text-yellow-50">
-              Следи за анонсами и дополнительными подробностями в нашей группе ВКонтакте:
-              <a href="https://vk.com/beaten_off_guys" target="_blank" rel="noopener noreferrer" class="text-yellow-200 hover:text-yellow-100 underline underline-offset-2">vk.com/beaten_off_guys</a>.
+            <p class="text-[12px] text-lime-100">
+              Следи за новостями и дополнительными материалами в нашей группе ВКонтакте:
+              <a href="https://vk.com/beaten_off_guys" target="_blank" rel="noopener noreferrer" class="text-lime-200 hover:text-lime-100 underline underline-offset-2">vk.com/beaten_off_guys</a>.
             </p>
           </article>
 
@@ -567,11 +632,13 @@
             </p>
           </article>
         </div>
+        </div>
       </div>
     </section>
 
     <!-- Members section -->
-    <section id="members" class="pb-20">
+    <section id="members" class="pb-20 pt-8 border-t border-slate-800/60">
+      <div class="max-w-4xl mx-auto">
       <div class="flex items-baseline justify-between mb-6">
         <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-[0.2em] text-slate-100">состав</h2>
       </div>
@@ -601,23 +668,29 @@
           </span>
         </a>
       </div>
+      </div>
     </section>
 
 
     <!-- Order section -->
-    <section id="order" class="pb-20">
-      <div class="grid lg:grid-cols-[3fr,2fr] gap-8 items-start">
-        <div class="border border-slate-800 bg-slate-950/80 rounded-md p-5 punk-border">
-          <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-[0.2em] text-slate-100 mb-3">заказ песен</h2>
-          <div class="inline-flex items-center gap-2 mb-3 px-3 py-1.5 border border-lime-400/80 rounded-sm bg-lime-400/10 shadow-[0_0_18px_rgba(190,242,100,0.35)]">
-            <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
-            <span class="text-[11px] sm:text-xs uppercase tracking-[0.22em] text-lime-300">Напишем песню по вашим мотивам</span>
-          </div>
-          <p class="text-sm text-slate-300 mb-4">
-            У тебя есть история, фраза, внутренняя боль или шутка для своих? Мы
-            превратим это в трек. Панк, пост-панк, грязный поп-панк — сделаем
-            так, чтобы звучало по-настоящему.
-          </p>
+    <section id="order" class="pb-20 pt-8 border-t border-slate-800/60">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-baseline justify-between mb-6">
+          <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-[0.2em] text-slate-100">заказ песен</h2>
+          <span class="text-[10px] uppercase tracking-[0.25em] text-slate-500">под ключ за 2500 ₽</span>
+        </div>
+
+        <div class="grid lg:grid-cols-[3fr,2fr] gap-8 items-start">
+          <div class="border border-slate-800 bg-slate-950/80 rounded-md p-5 punk-border">
+            <div class="inline-flex items-center gap-2 mb-3 px-3 py-1.5 border border-lime-400/80 rounded-sm bg-lime-400/10 shadow-[0_0_18px_rgba(190,242,100,0.35)]">
+              <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
+              <span class="text-[11px] sm:text-xs uppercase tracking-[0.22em] text-lime-300">Напишем песню по твоим мотивам</span>
+            </div>
+            <p class="text-sm text-slate-300 mb-4">
+              У тебя есть история, фраза, внутренняя боль или шутка для своих? Мы
+              превратим это в трек. Панк, пост-панк, грязный поп-панк — сделаем
+              так, чтобы звучало по-настоящему.
+            </p>
 
           <div class="mb-5 flex flex-wrap items-center gap-4 text-sm">
             <div class="text-2xl font-black text-lime-400">
