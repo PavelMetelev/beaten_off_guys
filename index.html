@@ -932,9 +932,9 @@
 
         showToast(text);
 
-        const vkBaseUrl = 'https://vk.com/beaten_off_guys';
+        const vkBaseUrl = 'https://vk.com/im?sel=-230126569&entrypoint=community_page';
         const message = encodeURIComponent(text + '\n\nНашёл вас на сайте, хочу заказать песню.');
-        const vkUrl = `${vkBaseUrl}?message=${message}`;
+        const vkUrl = `${vkBaseUrl}&message=${message}`;
 
         window.open(vkUrl, '_blank');
       });
