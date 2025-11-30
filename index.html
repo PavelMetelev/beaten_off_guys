@@ -330,6 +330,22 @@
         0 0 0 1px rgba(15, 23, 42, 1),
         0 0 35px rgba(190, 242, 100, 0.22);
     }
+
+    /* Modal for новости */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+
+    .modal-backdrop[data-open="true"] {
+      display: flex;
+    }
   </style>
 </head>
 <body class="text-slate-50 font-mono antialiased text-[16px] sm:text-[17px]">
@@ -341,11 +357,6 @@
       <div class="flex items-center gap-3">
         <div>
           <div class="text-lg font-bold text-slate-50">отбитые парни</div>
-        </div>
-        <!-- Top visit counter badge -->
-        <div class="hidden sm:inline-flex items-center gap-1 px-2 py-1 rounded-full border border-lime-400/70 bg-lime-400/10 text-[9px] uppercase tracking-[0.22em] text-lime-300">
-          <span class="w-1.5 h-1.5 rounded-full bg-lime-400 animate-pulse"></span>
-          <span>визиты: <span id="visitCounter" class="font-bold text-lime-100">0</span></span>
         </div>
       </div>
       <nav class="hidden sm:flex gap-6 text-sm sm:text-base uppercase tracking-[0.3em] text-slate-300">
@@ -430,6 +441,9 @@
         </div>
       </div>
     </section>
+
+    <!-- News anchor: основной контент новостей находится в блоке #newsPage -->
+    <section id="news" class="pb-4"></section>
 
     <!-- Music / Widget section -->
     <section id="music" class="pb-16">
@@ -546,7 +560,7 @@
           </div>
           <div class="flex items-center gap-3">
             <div id="countdown-timer" class="text-lg sm:text-2xl font-black text-pink-300 tracking-[0.2em]">
-              39:00:00:00
+              30:00:00:00
             </div>
             <div class="text-[9px] uppercase tracking-[0.2em] text-slate-400 text-right">
               <div>дни : часы : минуты : секунды</div>
@@ -555,9 +569,6 @@
         </div>
       </div>
     </section>
-
-    <!-- News section (stub for anchor) -->
-    <section id="news" class="pb-4"></section>
 
     <!-- Full news page -->
     <section id="newsPage" class="pt-10 pb-20 hidden">
@@ -571,114 +582,114 @@
 
         <div id="newsList" class="space-y-6 text-sm text-slate-200">
           <div class="space-y-4">
-          <!-- News sale: скидка 50% на заказ песен -->
-          <article id="sale-article" class="border border-pink-500/80 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 rounded-md px-4 py-4 flex flex-col gap-3 card-hover shadow-[0_0_25px_rgба(244,114,182,0.45)]">
-            <div class="flex flex-wrap items-center justify-between gap-3">
-              <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em]">
-                <span class="inline-flex items-center justify-center px-2 py-1 border border-pink-400 rounded-sm bg-pink-500 text-black font-bold">АКЦИЯ</span>
-                <span class="text-пинк-200/90">скидка 50% на заказ песен</span>
+            <!-- News sale: скидка 50% на заказ песен -->
+            <article id="sale-article" class="border border-pink-500/80 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 rounded-md px-4 py-4 flex flex-col gap-3 card-hover shadow-[0_0_25px_rgба(244,114,182,0.45)]">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em]">
+                  <span class="inline-flex items-center justify-center px-2 py-1 border border-pink-400 rounded-sm bg-pink-500 text-black font-bold">АКЦИЯ</span>
+                  <span class="text-пинк-200/90">скидка 50% на заказ песен</span>
+                </div>
+                <span id="sale-timer" class="text-[10px] uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-black/60 border border-lime-400/80 text-lime-300 shadow-[0_0_16px_rgба(190,242,100,0.65)]">
+                  до 1 января включительно
+                </span>
               </div>
-              <span id="sale-timer" class="text-[10px] uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-black/60 border border-lime-400/80 text-lime-300 shadow-[0_0_16px_rgба(190,242,100,0.65)]">
-                до 1 января включительно
-              </span>
-            </div>
-            <p class="text-[12px] text-slate-100">
-              Сейчас мы рубим цену на заказ авторских треков <span class="font-semibold text-lime-300">ровно вдвое</span> — вместо 5000 ₽ песня под тебя стоит <span class="font-bold text-lime-300">2500 ₽</span>. Панк, пост‑панк, грязный поп‑панк — всё по акции.
-            </p>
-            <p class="text-[12px] text-slate-200">
-              Успеть можно <span class="font-semibold text-pink-300">до 1 января включительно</span>. Просто переходи в блок
-              <a href="#order" class="text-orange-300 hover:text-orange-200 underline underline-offset-2">«заказ песен»</a>, заполняй форму и кидай нам заявку в ВКонтакте.
-            </p>
-          </article>
+              <p class="text-[12px] text-slate-100">
+                Сейчас мы рубим цену на заказ авторских треков <span class="font-semibold text-lime-300">ровно вдвое</span> — вместо 5000 ₽ песня под тебя стоит <span class="font-bold text-lime-300">2500 ₽</span>. Панк, пост‑панк, грязный поп‑панк — всё по акции.
+              </p>
+              <p class="text-[12px] text-slate-200">
+                Успеть можно <span class="font-semibold text-pink-300">до 1 января включительно</span>. Просто переходи в блок
+                <a href="#order" class="text-orange-300 hover:text-orange-200 underline underline-offset-2">«заказ песен»</a>, заполняй форму и кидай нам заявку в ВКонтакте.
+              </p>
+            </article>
 
-          <!-- News: Анонс трека "Призрак в онлайне" -->
-          <article class="border border-yellow-400/80 bg-yellow-400/10 rounded-md px-4 py-3 flex flex-col gap-3 card-hover">
-            <div class="flex items-center justify-between gap-2">
-              <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-yellow-200">
-                <span class="inline-flex items-center justify-center px-2 py-1 border border-yellow-300 rounded-sm bg-yellow-400 text-black font-bold">АНОНС</span>
-                <span class="text-yellow-200/90">призрак в онлайне</span>
+            <!-- News: Анонс трека "Призрак в онлайне" -->
+            <article class="border border-yellow-400/80 bg-yellow-400/10 rounded-md px-4 py-3 flex flex-col gap-3 card-hover">
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-yellow-200">
+                  <span class="inline-flex items-center justify-center px-2 py-1 border border-yellow-300 rounded-sm bg-yellow-400 text-black font-bold">АНОНС</span>
+                  <span class="text-yellow-200/90">призрак в онлайне</span>
+                </div>
+                <span class="text-[10px] text-yellow-900 uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-yellow-300 border border-yellow-500 shadow-[0_0_12px_rgba(250,204,21,0.7)]">
+                  СКОРО НА ВСЕХ ПЛОЩАДКАХ
+                </span>
               </div>
-              <span class="text-[10px] text-yellow-900 uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-yellow-300 border border-yellow-500 shadow-[0_0_12px_rgba(250,204,21,0.7)]">
-                СКОРО НА ВСЕХ ПЛОЩАДКАХ
-              </span>
-            </div>
-            <p class="text-[12px] text-yellow-50">
-              Скоро поднимаем в сеть новый трек <span class="font-semibold text-yellow-200">«Призрак в онлайне»</span> — панк про зависание в мессенджерах, удалённые чувства и людей, которые остаются только в уведомлениях.
-            </p>
-            <p class="text-[11px] uppercase tracking-[0.22em] text-yellow-200 bg-yellow-400/10 border border-yellow-400/60 rounded-sm px-3 py-1 inline-flex items-center gap-2 shadow-[0_0_14px_rgba(250,204,21,0.6)]">
-              <span class="w-1.5 h-1.5 rounded-full bg-yellow-300 animate-pulse"></span>
-              <span>официальная дата релиза трека — 1 декабря 2025 года</span>
-            </p>
-            <p class="text-[12px] text-yellow-50">
-              Это будет грязный, быстрый и немного истеричный трек: шумные гитары, прилипчивый припев и строчки, которые хочется отправить тем, кто уже давно "в сети", но не с тобой.
-            </p>
-            <p class="text-[12px] text-yellow-50">
-              Следи за датой релиза и первыми сниппетами в нашей группе ВКонтакте:
-              <a href="https://vk.com/beaten_off_guys" target="_blank" rel="noopener noreferrer" class="text-yellow-200 hover:text-yellow-100 underline underline-offset-2">vk.com/beaten_off_guys</a>.
-            </p>
-          </article>
+              <p class="text-[12px] text-yellow-50">
+                Скоро поднимаем в сеть новый трек <span class="font-semibold text-yellow-200">«Призрак в онлайне»</span> — панк про зависание в мессенджерах, удалённые чувства и людей, которые остаются только в уведомлениях.
+              </p>
+              <p class="text-[11px] uppercase tracking-[0.22em] text-yellow-200 bg-yellow-400/10 border border-yellow-400/60 rounded-sm px-3 py-1 inline-flex items-center gap-2 shadow-[0_0_14px_rgba(250,204,21,0.6)]">
+                <span class="w-1.5 h-1.5 rounded-full bg-yellow-300 animate-pulse"></span>
+                <span>официальная дата релиза трека — 1 декабря 2025 года</span>
+              </p>
+              <p class="text-[12px] text-yellow-50">
+                Это будет грязный, быстрый и немного истеричный трек: шумные гитары, прилипчивый припев и строчки, которые хочется отправить тем, кто уже давно "в сети", но не с тобой.
+              </p>
+              <p class="text-[12px] text-yellow-50">
+                Следи за датой релиза и первыми сниппетами в нашей группе ВКонтакте:
+                <a href="https://vk.com/beaten_off_guys" target="_blank" rel="noopener noreferrer" class="text-yellow-200 hover:text-yellow-100 underline underline-offset-2">vk.com/beaten_off_guys</a>.
+              </p>
+            </article>
 
-          <!-- News 0: Резонанс тишины релиз (зелёный блок как у "последнего отряда") -->
-          <article class="border border-lime-500/80 bg-lime-500/10 rounded-md px-4 py-3 flex flex-col gap-3 card-hover">
-            <div class="flex items-center justify-between gap-2">
-              <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-lime-200">
-                <span class="inline-flex items-center justify-center px-2 py-1 border border-lime-300 rounded-sm bg-lime-400 text-black font-bold">РЕЛИЗ</span>
-                <span class="text-lime-300/90">резонанс тишины</span>
+            <!-- News 0: Резонанс тишины релиз -->
+            <article class="border border-lime-500/80 bg-lime-500/10 rounded-md px-4 py-3 flex flex-col gap-3 card-hover">
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-lime-200">
+                  <span class="inline-flex items-center justify-center px-2 py-1 border border-lime-300 rounded-sm bg-lime-400 text-black font-bold">РЕЛИЗ</span>
+                  <span class="text-lime-300/90">резонанс тишины</span>
+                </div>
+                <span class="text-[10px] text-emerald-900 uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-emerald-300 border border-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.7)]">
+                  доступно на всех площадках
+                </span>
               </div>
-              <span class="text-[10px] text-emerald-900 uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-emerald-300 border border-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.7)]">
-                доступно на всех площадках
-              </span>
-            </div>
-            <p class="text-[12px] text-lime-100">
-              Наш трек <span class="font-semibold text-lime-300">«резонанс тишины»</span> уже вышел — грязный, прямой и громкий панк про то, как ломать рамки, которые тебе навязали.
-            </p>
-            <p class="text-[12px] text-lime-100">
-              Трек доступен на всех стриминговых площадках: врубай погромче, добавляй в свои плейлисты и делись с теми, кому срочно нужен шум в голове.
-            </p>
-            <p class="text-[12px] text-lime-100">
-              Следи за новостями и дополнительными материалами в нашей группе ВКонтакте:
-              <a href="https://vk.com/beaten_off_guys" target="_blank" rel="noopener noreferrer" class="text-lime-200 hover:text-lime-100 underline underline-offset-2">vk.com/beaten_off_guys</a>.
-            </p>
-          </article>
+              <p class="text-[12px] text-lime-100">
+                Наш трек <span class="font-semibold text-lime-300">«резонанс тишины»</span> уже вышел — грязный, прямой и громкий панк про то, как ломать рамки, которые тебе навязали.
+              </p>
+              <p class="text-[12px] text-lime-100">
+                Трек доступен на всех стриминговых площадках: врубай погромче, добавляй в свои плейлисты и делись с теми, кому срочно нужен шум в голове.
+              </p>
+              <p class="text-[12px] text-lime-100">
+                Следи за новостями и дополнительными материалами в нашей группе ВКонтакте:
+                <a href="https://vk.com/beaten_off_guys" target="_blank" rel="noopener noreferrer" class="text-lime-200 hover:text-lime-100 underline underline-offset-2">vk.com/beaten_off_guys</a>.
+              </p>
+            </article>
 
-          <!-- News 1 -->
-          <article class="border border-lime-500/80 bg-lime-500/10 rounded-md px-4 py-3 flex flex-col gap-3 card-hover">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-lime-200">
-                <span class="inline-flex items-center justify-center px-2 py-1 border border-lime-300 rounded-sm bg-lime-400 text-black font-bold">Релиз</span>
-                <span class="text-lime-300/90">последний отряд</span>
+            <!-- News 1: последний отряд релиз -->
+            <article class="border border-lime-500/80 bg-lime-500/10 rounded-md px-4 py-3 flex flex-col gap-3 card-hover">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-lime-200">
+                  <span class="inline-flex items-center justify-center px-2 py-1 border border-lime-300 rounded-sm bg-lime-400 text-black font-bold">Релиз</span>
+                  <span class="text-lime-300/90">последний отряд</span>
+                </div>
+                <span class="text-[10px] text-emerald-900 uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-emerald-300 border border-emerald-500 shadow-[0_0_12px_rgба(16,185,129,0.7)]">
+                  доступна на всех площадках
+                </span>
               </div>
-              <span class="text-[10px] text-emerald-900 uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-emerald-300 border border-emerald-500 shadow-[0_0_12px_rgба(16,185,129,0.7)]">
-                доступна на всех площадках
-              </span>
-            </div>
-            <p class="text-[12px] text-lime-100">
-              Песня <span class="text-lime-300 font-semibold">«последний отряд»</span> уже вышла и доступна на всех стриминговых площадках. Врубай погромче и добавляй в свои плейлисты.
-            </p>
-            <p class="text-[12px] text-lime-100">
-              Следи за обновлениями и свежими релизами в нашей группе ВКонтакте:
-              <a href="https://vk.com/beaten_off_guys" target="_blank" rel="noopener noreferrer" class="text-lime-200 hover:text-lime-100 underline underline-offset-2">vk.com/beaten_off_guys</a>.
-            </p>
-          </article>
+              <p class="text-[12px] text-lime-100">
+                Песня <span class="text-lime-300 font-semibold">«последний отряд»</span> уже вышла и доступна на всех стриминговых площадках. Врубай погромче и добавляй в свои плейлисты.
+              </p>
+              <p class="text-[12px] text-lime-100">
+                Следи за обновлениями и свежими релизами в нашей группе ВКонтакте:
+                <a href="https://vk.com/beaten_off_guys" target="_blank" rel="noopener noreferrer" class="text-lime-200 hover:text-lime-100 underline underline-offset-2">vk.com/beaten_off_guys</a>.
+              </p>
+            </article>
 
-          <!-- News 2 -->
-          <article class="border border-sky-500/70 bg-sky-500/10 rounded-md px-4 py-3 flex flex-col gap-3 card-hover">
-            <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-sky-200">
-              <span class="inline-flex items-center justify-center px-2 py-1 border border-sky-300 rounded-sm bg-sky-500 text-black font-bold">Поиск</span>
-              <span class="text-sky-100/80">видеомонтажёр</span>
-            </div>
-            <p class="text-[12px] text-sky-100">
-              Мы ищем <span class="font-semibold text-sky-200">высококвалифицированного видеомонтажёра</span>, который чувствует ритм панка и умеет собирать живые, дерзкие клипы из лайвов, репетиций и студийных ночей.
-            </p>
-            <p class="text-[12px] text-sky-100">
-              Если ты умеешь работать с динамичным монтажом под тяжёлую музыку, не боишься шумных залов, хаотичного света и иногда трясущейся камеры — нам по пути. Нам нужен человек, который сможет превратить сырой лайв в клип, от которого хочется ломать стены.
-            </p>
-            <p class="text-[12px] text-sky-100">
-              Напиши нам в ВКонтакте с пометкой <span class="italic">«монтажёр»</span> и обязательно приложи примеры работ:
-              <a href="https://vk.com/beaten_off_guys" target="_blank" rel="noopener noreferrer" class="text-sky-200 hover:text-sky-100 underline underline-offset-2">vk.com/beaten_off_guys</a>.
-            </p>
-          </article>
-        </div>
+            <!-- News 2: поиск видеомонтажёра -->
+            <article class="border border-sky-500/70 bg-sky-500/10 rounded-md px-4 py-3 flex flex-col gap-3 card-hover">
+              <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-sky-200">
+                <span class="inline-flex items-center justify-center px-2 py-1 border border-sky-300 rounded-sm bg-sky-500 text-black font-bold">Поиск</span>
+                <span class="text-sky-100/80">видеомонтажёр</span>
+              </div>
+              <p class="text-[12px] text-sky-100">
+                Мы ищем <span class="font-semibold text-sky-200">высококвалифицированного видеомонтажёра</span>, который чувствует ритм панка и умеет собирать живые, дерзкие клипы из лайвов, репетиций и студийных ночей.
+              </p>
+              <p class="text-[12px] text-sky-100">
+                Если ты умеешь работать с динамичным монтажом под тяжёлую музыку, не боишься шумных залов, хаотичного света и иногда трясущейся камеры — нам по пути. Нам нужен человек, который сможет превратить сырой лайв в клип, от которого хочется ломать стены.
+              </p>
+              <p class="text-[12px] text-sky-100">
+                Напиши нам в ВКонтакте с пометкой <span class="italic">«монтажёр»</span> и обязательно приложи примеры работ:
+                <a href="https://vk.com/beaten_off_guys" target="_blank" rel="noopener noreferrer" class="text-sky-200 hover:text-sky-100 underline underline-offset-2">vk.com/beaten_off_guys</a>.
+              </p>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -686,38 +697,37 @@
     <!-- Members section -->
     <section id="members" class="pb-20 pt-8 border-t border-slate-800/60">
       <div class="max-w-4xl mx-auto">
-      <div class="flex items-baseline justify-between mb-6">
-        <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-[0.2em] text-slate-100">состав</h2>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-4 text-xs sm:text-sm">
-        <a href="https://vk.com/ingram777" target="_blank" rel="noopener noreferrer" class="group border border-slate-800 bg-slate-950/70 rounded-md p-4 flex flex-col gap-1 card-hover">
-          <span class="member-name text-sm sm:text-base font-bold uppercase tracking-[0.2em] text-slate-50 group-hover:text-lime-400" data-text="Валера">Валера</span>
-          <span class="text-[11px] text-slate-400">Автор / Вокалист</span>
-          <span class="mt-1 inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.25em] text-slate-500 group-hover:text-lime-300">
-            профиль VK
-          </span>
-        </a>
-
-        <div class="group border border-slate-800 bg-slate-950/70 rounded-md p-4 flex flex-col gap-1 card-hover">
-          <span class="member-name text-sm sm:text-base font-bold uppercase tracking-[0.2em] text-slate-50 group-hover:text-orange-300" data-text="Александр">Александр</span>
-          <span class="text-[11px] text-slate-400">Вокалист / Звукорежиссёр</span>
-          <span class="mt-1 inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.25em] text-slate-500">
-            без ссылки · в тени, но в миксе
-          </span>
+        <div class="flex items-baseline justify-between mb-6">
+          <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-[0.2em] text-slate-100">состав</h2>
         </div>
 
-        <a href="https://vk.com/paatamosya" target="_blank" rel="noopener noreferrer" class="group border border-slate-800 bg-slate-950/70 rounded-md p-4 flex flex-col gap-1 card-hover">
-          <span class="member-name text-sm sm:text-base font-bold uppercase tracking-[0.2em] text-slate-50 group-hover:text-pink-400" data-text="Паата">Паата</span>
-          <span class="text-[11px] text-slate-400">Гитарист / Звукорежиссёр / Автор</span>
-          <span class="mt-1 inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.25em] text-slate-500 group-hover:text-pink-300">
-            профиль VK
-          </span>
-        </a>
-      </div>
+        <div class="grid md:grid-cols-3 gap-4 text-xs sm:text-sm">
+          <a href="https://vk.com/ingram777" target="_blank" rel="noopener noreferrer" class="group border border-slate-800 bg-slate-950/70 rounded-md p-4 flex flex-col gap-1 card-hover">
+            <span class="member-name text-sm sm:text-base font-bold uppercase tracking-[0.2em] text-slate-50 group-hover:text-lime-400" data-text="Валера">Валера</span>
+            <span class="text-[11px] text-slate-400">Автор / Вокалист</span>
+            <span class="mt-1 inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.25em] text-slate-500 group-hover:text-lime-300">
+              профиль VK
+            </span>
+          </a>
+
+          <div class="group border border-slate-800 bg-slate-950/70 rounded-md p-4 flex flex-col gap-1 card-hover">
+            <span class="member-name text-sm sm:text-base font-bold uppercase tracking-[0.2em] text-slate-50 group-hover:text-orange-300" data-text="Александр">Александр</span>
+            <span class="text-[11px] text-slate-400">Вокалист / Звукорежиссёр</span>
+            <span class="mt-1 inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.25em] text-slate-500">
+              без ссылки · в тени, но в миксе
+            </span>
+          </div>
+
+          <a href="https://vk.com/paatamosya" target="_blank" rel="noopener noreferrer" class="group border border-slate-800 bg-slate-950/70 rounded-md p-4 flex flex-col gap-1 card-hover">
+            <span class="member-name text-sm sm:text-base font-bold uppercase tracking-[0.2em] text-slate-50 group-hover:text-pink-400" data-text="Паата">Паата</span>
+            <span class="text-[11px] text-slate-400">Гитарист / Звукорежиссёр / Автор</span>
+            <span class="mt-1 inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.25em] text-slate-500 group-hover:text-pink-300">
+              профиль VK
+            </span>
+          </a>
+        </div>
       </div>
     </section>
-
 
     <!-- Order section -->
     <section id="order" class="pb-20 pt-8 border-t border-slate-800/60">
@@ -739,97 +749,121 @@
               так, чтобы звучало по-настоящему.
             </p>
 
-          <div class="mb-5 flex flex-wrap items-center gap-4 text-sm">
-            <div class="text-2xl font-black text-lime-400">
-              2500 ₽
-              <span class="block text-[10px] text-slate-400 font-normal uppercase tracking-[0.25em]">со скидкой 50% · фикс за трек</span>
+            <div class="mb-5 flex flex-wrap items-center gap-4 text-sm">
+              <div class="text-2xl font-black text-lime-400">
+                2500 ₽
+                <span class="block text-[10px] text-slate-400 font-normal uppercase tracking-[0.25em]">со скидкой 50% · фикс за трек</span>
+              </div>
+              <ul class="text-[11px] text-slate-300 space-y-1">
+                <li>— текст под тебя</li>
+                <li>— музыка и аранжировка</li>
+                <li>— демо в хорошем качестве</li>
+              </ul>
             </div>
-            <ul class="text-[11px] text-slate-300 space-y-1">
-              <li>— текст под тебя</li>
-              <li>— музыка и аранжировка</li>
-              <li>— демо в хорошем качестве</li>
-            </ul>
+
+            <form id="orderForm" class="space-y-3 text-[13px]">
+              <div class="grid sm:grid-cols-2 gap-3">
+                <label class="block">
+                  <span class="text-[11px] uppercase tracking-[0.22em] text-slate-400">имя</span>
+                  <input required name="name" type="text" class="mt-1 w-full bg-black/40 border border-slate-700 text-slate-100 text-xs px-3 py-2 rounded-sm focus:outline-none focus:border-lime-400" placeholder="как к тебе обращаться" />
+                </label>
+                <label class="block">
+                  <span class="text-[11px] uppercase tracking-[0.22em] text-slate-400">контакт</span>
+                  <input required name="contact" type="text" class="mt-1 w-full bg-black/40 border border-slate-700 text-slate-100 text-xs px-3 py-2 rounded-sm focus:outline-none focus:border-orange-400" placeholder="VK, телега или телефон" />
+                </label>
+              </div>
+              <label class="block">
+                <span class="text-[11px] uppercase tracking-[0.22em] text-slate-400">о чём трек</span>
+                <textarea required name="idea" rows="3" class="mt-1 w-full bg-black/40 border border-slate-700 text-slate-100 text-xs px-3 py-2 rounded-sm focus:outline-none focus:border-pink-500" placeholder="кратко: история, эмоция, фразы, которые хочешь услышать в тексте"></textarea>
+              </label>
+              <label class="flex items-center gap-2 text-[11px] text-slate-400">
+                <input type="checkbox" name="fast" class="accent-lime-400" />
+                <span>нужно быстрее обычного (обсудим отдельно)</span>
+              </label>
+              <button type="submit" class="btn-punk w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-slate-600 bg-slate-900 px-5 py-2.5 uppercase tracking-[0.25em] text-[11px] text-slate-100 hover:border-lime-400">
+                <span>отправить заявку</span>
+              </button>
+              <p class="text-[10px] text-slate-500">
+                * Форма никуда не отправляет данные автоматически. Просто скопируй
+                текст заявки из всплывающего окна и закинь нам в ВКонтакте.
+              </p>
+            </form>
           </div>
 
-          <form id="orderForm" class="space-y-3 text-[13px]">
-            <div class="grid sm:grid-cols-2 gap-3">
-              <label class="block">
-                <span class="text-[11px] uppercase tracking-[0.22em] text-slate-400">имя</span>
-                <input required name="name" type="text" class="mt-1 w-full bg-black/40 border border-slate-700 text-slate-100 text-xs px-3 py-2 rounded-sm focus:outline-none focus:border-lime-400" placeholder="как к тебе обращаться" />
-              </label>
-              <label class="block">
-                <span class="text-[11px] uppercase tracking-[0.22em] text-slate-400">контакт</span>
-                <input required name="contact" type="text" class="mt-1 w-full bg-black/40 border border-slate-700 text-slate-100 text-xs px-3 py-2 rounded-sm focus:outline-none focus:border-orange-400" placeholder="VK, телега или телефон" />
-              </label>
+          <aside class="space-y-4 text-[13px] text-slate-300">
+            <div class="border border-slate-800 bg-slate-950/70 rounded-md p-4">
+              <h3 class="text-[11px] uppercase tracking-[0.25em] text-slate-400 mb-2">как это работает</h3>
+              <ol class="space-y-1 list-decimal list-inside text-xs text-slate-300">
+                <li>Заполняешь форму или просто формулируешь, что тебе нужно.</li>
+                <li>Пишешь нам в ВКонтакте с пометкой «заказ песни».</li>
+                <li>Мы созваниваемся / списываемся, обсуждаем стиль и детали.</li>
+                <li>Через согласованный срок получаешь готовый трек.</li>
+              </ol>
             </div>
-            <label class="block">
-              <span class="text-[11px] uppercase tracking-[0.22em] text-slate-400">о чём трек</span>
-              <textarea required name="idea" rows="3" class="mt-1 w-full bg-black/40 border border-slate-700 text-slate-100 text-xs px-3 py-2 rounded-sm focus:outline-none focus:border-pink-500" placeholder="кратко: история, эмоция, фразы, которые хочешь услышать в тексте"></textarea>
-            </label>
-            <label class="flex items-center gap-2 text-[11px] text-slate-400">
-              <input type="checkbox" name="fast" class="accent-lime-400" />
-              <span>нужно быстрее обычного (обсудим отдельно)</span>
-            </label>
-            <button type="submit" class="btn-punk w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-slate-600 bg-slate-900 px-5 py-2.5 uppercase tracking-[0.25em] text-[11px] text-slate-100 hover:border-lime-400">
-              <span>отправить заявку</span>
-            </button>
-            <p class="text-[10px] text-slate-500">
-              * Форма никуда не отправляет данные автоматически. Просто скопируй
-              текст заявки из всплывающего окна и закинь нам в ВКонтакте.
-            </p>
-          </form>
+
+            <div class="border border-slate-800 bg-slate-950/70 rounded-md p-4" id="contacts">
+              <h3 class="text-[11px] uppercase tracking-[0.25em] text-slate-400 mb-2">наша площадка</h3>
+              <p class="text-xs mb-2">ВКонтакте — там анонсы, черновики и связь с нами:</p>
+              <a href="https://vk.com/beaten_off_guys" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 bg-sky-500/10 border border-sky-500/60 rounded-sm text-xs text-sky-200 hover:bg-sky-500/20">
+                <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                <span class="uppercase tracking-[0.25em] text-[10px]">группа ВКонтакте</span>
+              </a>
+              <p class="mt-3 text-[11px] text-slate-400">
+                Пиши туда по любым вопросам: концерты, совместки, заказ песни,
+                просто фидбек по трекам.
+              </p>
+            </div>
+
+            <div class="border border-dashed border-slate-700 bg-slate-950/60 rounded-md p-4 text-[11px] text-slate-400">
+              <p>
+                Хочешь услышать себя в треке? Присылай голосовые заметки, фразы,
+                что крутились в голове, или истории, которые обычно рассказываешь
+                только под утро. Мы из этого соберём песню.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 max-w-md w-[90%] md:w-auto bg-slate-900/95 border border-lime-400/80 text-slate-100 text-xs px-4 py-3 rounded-sm shadow-2xl opacity-0 pointer-events-none transition-opacity duration-200 z-50">
+      <div class="flex items-start gap-3">
+        <div class="mt-0.5 w-1.5 h-1.5 rounded-full bg-lime-400"></div>
+        <div>
+          <p class="uppercase tracking-[0.2em] text-[9px] text-lime-300 mb-1">заявка собрана</p>
+          <p id="toastMessage" class="text-[11px] text-slate-100"></p>
+          <p class="mt-1 text-[10px] text-slate-400">скопируй текст выше и пришли нам в ВКонтакте.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contacts -->
+    <section id="contacts" class="pb-20">
+      <div class="flex items-baseline justify-between mb-6">
+        <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-[0.2em] text-slate-100">КОНТАКТЫ</h2>
+        <span class="text-[10px] uppercase tracking-[0.25em] text-slate-500">остальное в личке</span>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] items-start">
+        <div class="border border-slate-800/80 bg-slate-950/80 rounded-md p-5 sm:p-6 space-y-4 card-hover">
+          <div>
+            <p class="text-[10px] uppercase tracking-[0.25em] text-slate-400 mb-1">главное</p>
+            <p class="text-sm text-slate-200">Все вопросы по концертам, коллабам и заказам — лучше сразу в личку ВК.</p>
+          </div>
+          <div class="space-y-2 text-sm">
+            <a href="https://vk.com/beaten_off_guys" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-sky-300 hover:text-sky-100 link-underline">
+              открыть страницу ВК
+            </a>
+          </div>
+          <p class="text-[11px] text-slate-500 pt-2 border-t border-slate-800/70">Если не отвечаем сразу — либо студия, либо рейджим на репетиции. Ответим, как только утихнет шум.</p>
         </div>
 
-        <aside class="space-y-4 text-[13px] text-slate-300">
-          <div class="border border-slate-800 bg-slate-950/70 rounded-md p-4">
-            <h3 class="text-[11px] uppercase tracking-[0.25em] text-slate-400 mb-2">как это работает</h3>
-            <ol class="space-y-1 list-decimal list-inside text-xs text-slate-300">
-              <li>Заполняешь форму или просто формулируешь, что тебе нужно.</li>
-              <li>Пишешь нам в ВКонтакте с пометкой «заказ песни».</li>
-              <li>Мы созваниваемся / списываемся, обсуждаем стиль и детали.</li>
-              <li>Через согласованный срок получаешь готовый трек.</li>
-            </ol>
-          </div>
-
-          <div class="border border-slate-800 bg-slate-950/70 rounded-md p-4" id="contacts">
-            <h3 class="text-[11px] uppercase tracking-[0.25em] text-slate-400 mb-2">наша площадка</h3>
-            <p class="text-xs mb-2">ВКонтакте — там анонсы, черновики и связь с нами:</p>
-            <a href="https://vk.com/beaten_off_guys" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 bg-sky-500/10 border border-sky-500/60 rounded-sm text-xs text-sky-200 hover:bg-sky-500/20">
-              <span class="w-2 h-2 rounded-full bg-sky-400"></span>
-              <span class="uppercase tracking-[0.25em] text-[10px]">группа ВКонтакте</span>
-            </a>
-            <p class="mt-3 text-[11px] text-slate-400">
-              Пиши туда по любым вопросам: концерты, совместки, заказ песни,
-              просто фидбек по трекам.
-            </p>
-          </div>
-
-          <div class="border border-dashed border-slate-700 bg-slate-950/60 rounded-md p-4 text-[11px] text-slate-400">
-            <p>
-              Хочешь услышать себя в треке? Присылай голосовые заметки, фразы,
-              что крутились в голове, или истории, которые обычно рассказываешь
-              только под утро. Мы из этого соберём песню.
-            </p>
-          </div>
-        </aside>
       </div>
     </section>
   </main>
 
-  <!-- Toast -->
-  <div id="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 max-w-md w-[90%] md:w-auto bg-slate-900/95 border border-lime-400/80 text-slate-100 text-xs px-4 py-3 rounded-sm shadow-2xl opacity-0 pointer-events-none transition-opacity duration-200 z-50">
-    <div class="flex items-start gap-3">
-      <div class="mt-0.5 w-1.5 h-1.5 rounded-full bg-lime-400"></div>
-      <div>
-        <p class="uppercase tracking-[0.2em] text-[9px] text-lime-300 mb-1">заявка собрана</p>
-        <p id="toastMessage" class="text-[11px] text-slate-100"></p>
-        <p class="mt-1 text-[10px] text-slate-400">скопируй текст выше и пришли нам в ВКонтакте.</p>
-      </div>
-    </div>
-  </div>
-
-
-  <footer class="relative z-10 border-т border-slate-800/80 bg-black/80 mt-6">
+  <footer class="relative z-10 border-t border-slate-800/80 bg-black/80 mt-6">
     <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
       <p class="text-[10px] text-slate-500">
         отбитые парни · панк рок · шумим законно
@@ -842,234 +876,280 @@
     </div>
   </footer>
 
+  <!-- Модалка новостей (для мобильных / по кнопке в хедере) -->
+  <div id="newsModal" class="modal-backdrop" aria-hidden="true">
+    <div class="max-w-md w-full mx-4 border border-slate-700 bg-slate-950 rounded-md p-4 relative">
+      <button id="closeNewsModal" class="absolute top-2 right-2 text-slate-500 hover:text-slate-200 text-sm" aria-label="Закрыть новости">✕</button>
+      <h2 class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-200 mb-3">НОВОСТИ</h2>
+      <div class="space-y-3 text-xs text-slate-300 max-h-[60vh] overflow-y-auto pr-1">
+        <div>
+          <p class="text-[10px] uppercase tracking-[0.28em] text-lime-300 mb-1">СВЕЖЕЕ</p>
+          <p class="font-semibold text-slate-100 mb-1">Новый трек в работе</p>
+          <p class="text-slate-400">Пишем злой панк-хит про офисную рутину и вечный дедлайн. Лайв, без правок и глянца.</p>
+        </div>
+        <div class="border-t border-slate-800/70 pt-2">
+          <p class="text-[10px] uppercase tracking-[0.28em] text-orange-300 mb-1">МЕРЧ</p>
+          <p class="font-semibold text-slate-100 mb-1">Первые макеты футболок</p>
+          <p class="text-slate-400">Если хочешь носить лого &quot;отбитых парней&quot; на груди — напиши нам, отметим тебя в первых дропах.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    const scrollToOrderBtn = document.getElementById('scrollToOrder');
-    const countdownEl = document.getElementById('countdown-timer');
-    const orderSection = document.getElementById('order');
-    const orderForm = document.getElementById('orderForm');
-    const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toastMessage');
-    const newsPageSection = document.getElementById('newsPage');
-    const newsStubSection = document.getElementById('news');
-    const navNewsBtn = document.getElementById('navNews');
-    const toggleYmBtn = document.getElementById('toggle-ym');
-    const ymContainer = document.getElementById('ym-container');
-    const toggleYmLabel = document.getElementById('toggle-ym-label');
-    const toggleYmIcon = document.getElementById('toggle-ym-icon');
-    const visitCounterEl = document.getElementById('visitCounter');
-    let toastTimeout;
-
-    // Открытие раздела новостей как отдельной "страницы"
-    if (navNewsBtn && newsPageSection) {
-      navNewsBtn.addEventListener('click', () => {
-        newsPageSection.classList.remove('hidden');
-        newsPageSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    }
-
-    if (scrollToOrderBtn && orderSection) {
-      scrollToOrderBtn.addEventListener('click', () => {
-        orderSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    }
-
-    // Countdown widget logic (39 days from first load)
-    (function () {
-      if (!countdownEl) return;
-      const STORAGE_KEY = 'op_punk_countdown_start';
-      const now = Date.now();
-      let start = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
-      if (!start || Number.isNaN(start)) {
-        start = now;
-        try {
-          localStorage.setItem(STORAGE_KEY, String(start));
-        } catch (e) {}
+    // Helper: smooth scroll
+    function smoothScrollTo(selector) {
+      const el = document.querySelector(selector);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-      const durationMs = 39 * 24 * 60 * 60 * 1000; // 39 дней
+    }
 
-      function updateCountdown() {
-        const current = Date.now();
-        let remaining = start + durationMs - current;
-        if (remaining < 0) remaining = 0;
+    document.addEventListener('DOMContentLoaded', function () {
+      // Year in footer
+      const yearSpan = document.getElementById('yearSpan');
+      if (yearSpan) yearSpan.textContent = String(new Date().getFullYear());
 
-        const totalSeconds = Math.floor(remaining / 1000);
-        const days = Math.floor(totalSeconds / (24 * 60 * 60));
-        const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
+      // Elements for interactions
+      const scrollToOrderBtn = document.getElementById('scrollToOrder');
+      const countdownEl = document.getElementById('countdown-timer');
+      const orderSection = document.getElementById('order');
+      const orderForm = document.getElementById('orderForm');
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      const ymContainer = document.getElementById('ym-container');
+      const toggleYmBtn = document.getElementById('toggle-ym');
+      const toggleYmIcon = document.getElementById('toggle-ym-icon');
+      const toggleYmLabel = document.getElementById('toggle-ym-label');
+      let toastTimeout;
 
-        const pad = (n) => n.toString().padStart(2, '0');
-        countdownEl.textContent = `${pad(days)}:${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+      // Scroll to order from hero button
+      if (scrollToOrderBtn && orderSection) {
+        scrollToOrderBtn.addEventListener('click', () => {
+          orderSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
       }
 
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
-    })();
-
-    function showToast(message) {
-      if (!toast) return;
-      toastMessage.textContent = message;
-      toast.classList.remove('opacity-0', 'pointer-events-none');
-      toast.classList.add('opacity-100');
-
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        toast.classList.add('opacity-0', 'pointer-events-none');
-        toast.classList.remove('opacity-100');
-      }, 7000);
-    }
-
-    if (orderForm) {
-      orderForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const formData = new FormData(orderForm);
-        const name = formData.get('name')?.toString().trim() || 'Без имени';
-        const contact = formData.get('contact')?.toString().trim() || 'Не указан';
-        const idea = formData.get('idea')?.toString().trim() || 'Без описания';
-        const fast = formData.get('fast') === 'on';
-
-        const text = `Заявка на заказ песни\n\nИмя: ${name}\nКонтакт: ${contact}\nНужно быстрее обычного: ${fast ? 'да' : 'нет'}\n\nИдея трека:\n${idea}\n\nСтоимость: 2500 ₽ (со скидкой 50%, фикс за трек)`;
-
-        showToast(text);
-
-        const vkBaseUrl = 'https://vk.com/im?sel=-230126569&entrypoint=community_page';
-        const message = encodeURIComponent(text + '\n\nНашёл вас на сайте, хочу заказать песню.');
-        const vkUrl = `${vkBaseUrl}&message=${message}`;
-
-        window.open(vkUrl, '_blank');
-      });
-    }
-
-    // Toggle Yandex Music widget
-    if (toggleYmBtn && ymContainer && toggleYmLabel && toggleYmIcon) {
-      let ymExpanded = true;
-
-      toggleYmBtn.addEventListener('click', () => {
-        ymExpanded = !ymExpanded;
-        if (ymExpanded) {
-          ymContainer.style.maxHeight = '520px';
-          ymContainer.style.opacity = '1';
-          toggleYmLabel.textContent = 'СВЕРНУТЬ ПЛЕЕР';
-          toggleYmIcon.textContent = '−';
-        } else {
-          ymContainer.style.maxHeight = '0px';
-          ymContainer.style.opacity = '0';
-          toggleYmLabel.textContent = 'РАЗВЕРНУТЬ ПЛЕЕР';
-          toggleYmIcon.textContent = '+';
+      // Countdown widget logic (39 days from first load)
+      (function () {
+        if (!countdownEl) return;
+        const STORAGE_KEY = 'op_punk_countdown_start';
+        const now = Date.now();
+        let start = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+        if (!start || Number.isNaN(start)) {
+          start = now;
+          try {
+            localStorage.setItem(STORAGE_KEY, String(start));
+          } catch (e) {}
         }
-      });
-    }
+        const durationMs = 30 * 24 * 60 * 60 * 1000; // 30 дней
 
-    // Visit counter using localStorage (increments by random amount once per day)
-    (function () {
-      if (!visitCounterEl) return;
-      try {
-        const COUNT_KEY = 'op_punk_visits';
-        const DATE_KEY = 'op_punk_visits_last_date';
+        function updateCountdown() {
+          const current = Date.now();
+          let remaining = start + durationMs - current;
+          if (remaining < 0) remaining = 0;
 
-        const today = new Date();
-        const todayStr = today.toISOString().slice(0, 10); // YYYY-MM-DD
+          const totalSeconds = Math.floor(remaining / 1000);
+          const days = Math.floor(totalSeconds / (24 * 60 * 60));
+          const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / 3600);
+          const minutes = Math.floor((totalSeconds % 3600) / 60);
+          const seconds = totalSeconds % 60;
 
-        const rawCount = localStorage.getItem(COUNT_KEY);
-        const lastDate = localStorage.getItem(DATE_KEY);
-        let count = rawCount ? parseInt(rawCount, 10) : 0;
-        if (Number.isNaN(count)) count = 0;
-
-        // Увеличиваем счётчик только если сегодня ещё не считали визит
-        if (lastDate !== todayStr) {
-          // Случайное увеличение, например от 3 до 15 визитов за день
-          const min = 3;
-          const max = 15;
-          const randomIncrement = Math.floor(Math.random() * (max - min + 1)) + min;
-
-          count += randomIncrement;
-          localStorage.setItem(COUNT_KEY, String(count));
-          localStorage.setItem(DATE_KEY, todayStr);
+          const pad = (n) => n.toString().padStart(2, '0');
+          countdownEl.textContent = `${pad(days)}:${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
         }
 
-        visitCounterEl.textContent = count.toString();
-      } catch (e) {
-        // Если localStorage недоступен, просто показываем тире
-        visitCounterEl.textContent = '-';
-      }
-    })();
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      })();
 
-    // Snow effect
-    (function () {
-      const canvas = document.getElementById('snowCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let width = window.innerWidth;
-      let height = window.innerHeight;
+      function showToast(message) {
+        if (!toast || !toastMessage) return;
+        toastMessage.textContent = message;
+        toast.classList.remove('opacity-0', 'pointer-events-none');
+        toast.classList.add('opacity-100');
 
-      const snowflakes = [];
-      const FLAKES_COUNT = 120;
-
-      function resize() {
-        width = window.innerWidth;
-        height = window.innerHeight;
-        canvas.width = width * window.devicePixelRatio;
-        canvas.height = height * window.devicePixelRatio;
-        ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.add('opacity-0', 'pointer-events-none');
+          toast.classList.remove('opacity-100');
+        }, 7000);
       }
 
-      function createFlake() {
-        return {
-          x: Math.random() * width,
-          y: Math.random() * -height,
-          r: Math.random() * 2 + 1,
-          speedY: Math.random() * 0.8 + 0.6,
-          speedX: Math.random() * 0.6 - 0.3,
-          opacity: Math.random() * 0.5 + 0.3,
-        };
+      // Order form -> toast + open VK dialog
+      if (orderForm) {
+        orderForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const formData = new FormData(orderForm);
+          const name = (formData.get('name') || '').toString().trim() || 'Без имени';
+          const contact = (formData.get('contact') || '').toString().trim() || 'Не указан';
+          const idea = (formData.get('idea') || '').toString().trim() || 'Без описания';
+          const fast = formData.get('fast') === 'on';
+
+          const text = `Заявка на заказ песни\n\nИмя: ${name}\nКонтакт: ${contact}\nНужно быстрее обычного: ${fast ? 'да' : 'нет'}\n\nИдея трека:\n${idea}\n\nСтоимость: 2500 ₽ (со скидкой 50%, фикс за трек)`;
+
+          showToast(text);
+
+          const vkBaseUrl = 'https://vk.com/im?sel=-230126569&entrypoint=community_page';
+          const message = encodeURIComponent(text + '\n\nНашёл вас на сайте, хочу заказать песню.');
+          const vkUrl = `${vkBaseUrl}&message=${message}`;
+
+          window.open(vkUrl, '_blank');
+        });
       }
 
-      function initFlakes() {
-        snowflakes.length = 0;
-        for (let i = 0; i < FLAKES_COUNT; i++) {
-          const f = createFlake();
-          f.y = Math.random() * height;
-          snowflakes.push(f);
+      // Toggle Yandex Music widget
+      if (toggleYmBtn && ymContainer && toggleYmLabel && toggleYmIcon) {
+        let ymExpanded = true;
+
+        toggleYmBtn.addEventListener('click', () => {
+          ymExpanded = !ymExpanded;
+          if (ymExpanded) {
+            ymContainer.style.maxHeight = '520px';
+            ymContainer.style.opacity = '1';
+            toggleYmLabel.textContent = 'СВЕРНУТЬ ПЛЕЕР';
+            toggleYmIcon.textContent = '−';
+          } else {
+            ymContainer.style.maxHeight = '0px';
+            ymContainer.style.opacity = '0';
+            toggleYmLabel.textContent = 'РАЗВЕРНУТЬ ПЛЕЕР';
+            toggleYmIcon.textContent = '+';
+          }
+        });
+      }
+
+      // News modal + full news page
+      const navNewsBtn = document.getElementById('navNews');
+      const newsSection = document.getElementById('news');
+      const newsModal = document.getElementById('newsModal');
+      const closeNewsModal = document.getElementById('closeNewsModal');
+      const newsPage = document.getElementById('newsPage');
+      const closeNewsBtn = document.getElementById('closeNews');
+
+      function openNewsModal() {
+        if (!newsModal) return;
+        newsModal.setAttribute('data-open', 'true');
+        newsModal.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeNewsModalFn() {
+        if (!newsModal) return;
+        newsModal.setAttribute('data-open', 'false');
+        newsModal.setAttribute('aria-hidden', 'true');
+      }
+
+      function openNewsPage() {
+        if (!newsPage) return;
+        newsPage.classList.remove('hidden');
+        smoothScrollTo('#newsPage');
+      }
+
+      function closeNewsPage() {
+        if (!newsPage) return;
+        newsPage.classList.add('hidden');
+        smoothScrollTo('#news');
+      }
+
+      if (navNewsBtn) {
+        navNewsBtn.addEventListener('click', function () {
+          if (window.innerWidth >= 768) {
+            openNewsPage();
+          } else {
+            openNewsModal();
+          }
+        });
+      }
+
+      if (closeNewsModal) {
+        closeNewsModal.addEventListener('click', closeNewsModalFn);
+      }
+
+      if (newsModal) {
+        newsModal.addEventListener('click', function (e) {
+          if (e.target === newsModal) closeNewsModalFn();
+        });
+      }
+
+      if (closeNewsBtn) {
+        closeNewsBtn.addEventListener('click', closeNewsPage);
+      }
+
+      // Snow effect
+      (function () {
+        const canvas = document.getElementById('snowCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+
+        const snowflakes = [];
+        const FLAKES_COUNT = 120;
+
+        function resize() {
+          width = window.innerWidth;
+          height = window.innerHeight;
+          canvas.width = width * window.devicePixelRatio;
+          canvas.height = height * window.devicePixelRatio;
+          ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
         }
-      }
 
-      function update() {
-        ctx.clearRect(0, 0, width, height);
-        ctx.fillStyle = '#ffffff';
+        function createFlake() {
+          return {
+            x: Math.random() * width,
+            y: Math.random() * -height,
+            r: Math.random() * 2 + 1,
+            speedY: Math.random() * 0.8 + 0.6,
+            speedX: Math.random() * 0.6 - 0.3,
+            opacity: Math.random() * 0.5 + 0.3,
+          };
+        }
 
-        for (let i = 0; i < snowflakes.length; i++) {
-          const f = snowflakes[i];
-          f.y += f.speedY;
-          f.x += f.speedX;
+        function initFlakes() {
+          snowflakes.length = 0;
+          for (let i = 0; i < FLAKES_COUNT; i++) {
+            const f = createFlake();
+            f.y = Math.random() * height;
+            snowflakes.push(f);
+          }
+        }
 
-          if (f.y > height + 5) {
-            snowflakes[i] = createFlake();
+        function update() {
+          ctx.clearRect(0, 0, width, height);
+          ctx.fillStyle = '#ffffff';
+
+          for (let i = 0; i < snowflakes.length; i++) {
+            const f = snowflakes[i];
+            f.y += f.speedY;
+            f.x += f.speedX;
+
+            if (f.y > height + 5) {
+              snowflakes[i] = createFlake();
+            }
+
+            if (f.x < -5) f.x = width + 5;
+            if (f.x > width + 5) f.x = -5;
+
+            ctx.globalAlpha = f.opacity;
+            ctx.beginPath();
+            ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+            ctx.fill();
           }
 
-          if (f.x < -5) f.x = width + 5;
-          if (f.x > width + 5) f.x = -5;
-
-          ctx.globalAlpha = f.opacity;
-          ctx.beginPath();
-          ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-          ctx.fill();
+          ctx.globalAlpha = 1;
+          requestAnimationFrame(update);
         }
 
-        ctx.globalAlpha = 1;
-        requestAnimationFrame(update);
-      }
-
-      resize();
-      initFlakes();
-      update();
-
-      window.addEventListener('resize', () => {
         resize();
         initFlakes();
-      });
-    })();
+        update();
 
+        window.addEventListener('resize', () => {
+          resize();
+          initFlakes();
+        });
+      })();
 
+    });
   </script>
 </body>
 </html>
