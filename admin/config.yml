@@ -1,0 +1,15 @@
+backend:
+  name: github
+  repo: pavelmetelev/beaten_off_guys
+  branch: main
+
+collections:
+  - name: hero
+    label: Hero
+    files:
+      - file: content/hero.json
+        name: hero
+        fields:
+          - { label: Заголовок, name: title, widget: string }
+          - { label: Описание, name: description, widget: text }
+          - { label: Кнопка, name: buttonText, widget: string }
