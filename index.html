@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>отбитые парни — панк рок</title>
-  <meta name="description" content="Панк рок группа &quot;отбитые парни&quot;. Слушай релизы, заказывай песни под ключ за 2500 ₽. ВКонтакте: beaten_off_guys." />
+  <meta name="description" content="Панк рок группа &quot;отбитые парни&quot;. Слушай релизы, заказывай песни под ключ за 5000 ₽. ВКонтакте: beaten_off_guys." />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <!-- Google Fonts for New Year punk countdown -->
   <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Special+Elite&display=swap" rel="stylesheet">
@@ -342,13 +342,6 @@
       transform: translate(-2px, 1px);
     }
 
-    /* Snow canvas */
-    #snowCanvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 5;
-    }
 
     /* Punk card base styles for music block */
     .punk-card {
@@ -524,7 +517,6 @@
 </head>
 <body class="text-slate-50 font-mono antialiased text-[16px] sm:text-[17px]">
   <div class="noise"></div>
-  <canvas id="snowCanvas"></canvas>
 
   <!-- Maintenance overlay: временно закрыт на технические работы -->
   <div id="maintenanceOverlay" class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/95 text-slate-50 px-4">
@@ -586,7 +578,7 @@
         </p>
         <div class="flex flex-wrap gap-3 items-center">
           <button id="scrollToOrder" class="btn-punk inline-flex items-center gap-2 border border-lime-400 bg-lime-500/10 px-5 py-2.5 uppercase tracking-[0.2em] text-xs text-lime-300 hover:text-lime-100 rounded-sm">
-            <span>Заказать песню за 2500 ₽</span>
+            <span>Заказать песню за 5000 ₽</span>
           </button>
           <a href="#music" class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-slate-300 hover:text-orange-300">
             <span class="link-underline">Слушать релизы</span>
@@ -754,112 +746,6 @@
       </div>
     </section>
 
-    <!-- New Year punk countdown section -->
-    <section id="countdown" class="pb-6">
-      <div class="max-w-4xl mx-auto">
-        <section class="ny-punk-card px-5 sm:px-10 py-8 sm:py-10 text-slate-100 relative overflow-hidden card-hover">
-          <!-- Декоративная сетка крестов -->
-          <div class="absolute inset-0 cross-grid opacity-40" aria-hidden="true"></div>
-
-          <!-- Верхние декоративные элементы -->
-          <div class="absolute -top-6 left-6 flex gap-2 items-center text-xs uppercase tracking-[0.2em] font-semibold text-amber-300">
-            <div class="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.9)]"></div>
-            <span class="bg-black/60 px-2 py-1 border border-amber-400/70">DIY COUNTDOWN</span>
-          </div>
-
-          <div class="absolute -top-8 right-6 text-[0.65rem] text-pink-300/80 rotate-3 bg-black/60 px-2 py-1 border border-pink-400/70 font-['Special_Elite',monospace]">
-            NO GODS · NO CORPORATE NYE
-          </div>
-
-          <div class="relative z-10">
-            <!-- Заголовок -->
-            <header class="mb-8 sm:mb-10 text-center">
-              <div class="inline-flex flex-col gap-2 items-center">
-                <div class="text-xs sm:text-sm font-mono uppercase tracking-[0.35em] text-slate-200/80 bg-black/60 px-4 py-1 border border-slate-500/70">
-                  Обратный отсчёт до
-                </div>
-                <h2 class="glitch text-3xl sm:text-4xl md:text-5xl" data-text="НОВОГО ГОДА">
-                  НОВОГО ГОДА
-                </h2>
-                <p class="mt-4 max-w-xl text-xs sm:text-sm text-slate-200/90 font-['Special_Elite',monospace] leading-relaxed mx-auto">
-                  Порвём календарь и войдём в новый год под гитарный визг. Следующий взрыв часов — в
-                  <span id="ny-year" class="font-semibold text-amber-300"></span>.
-                </p>
-              </div>
-            </header>
-
-            <!-- Основной таймер -->
-            <section class="relative">
-              <div class="cross-grid absolute inset-0 opacity-40"></div>
-
-              <div class="relative grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
-                <!-- Days -->
-                <div class="count-segment bg-slate-900/80 border border-amber-400/70 rounded-md sm:rounded-lg px-3 py-3 sm:px-4 sm:py-4 flex flex-col items-center justify-between">
-                  <span class="text-[0.65rem] sm:text-xs uppercase tracking-[0.15em] text-amber-200/80 mb-1 sm:mb-2 font-mono">Дни</span>
-                  <span id="days" class="font-['Rubik_Mono_One',system-ui] text-2xl sm:text-3xl md:text-4xl text-amber-300 drop-shadow-[0_0_12px_rgba(251,191,36,0.9)]">
-                    --
-                  </span>
-                </div>
-
-                <!-- Hours -->
-                <div class="count-segment bg-slate-900/80 border border-sky-400/70 rounded-md sm:rounded-lg px-3 py-3 sm:px-4 sm:py-4 flex flex-col items-center justify-between">
-                  <span class="text-[0.65rem] sm:text-xs uppercase tracking-[0.15em] text-sky-200/80 mb-1 sm:mb-2 font-mono">Часы</span>
-                  <span id="hours" class="font-['Rubik_Mono_One',system-ui] text-2xl sm:text-3xl md:text-4xl text-sky-300 drop-shadow-[0_0_12px_rgba(56,189,248,0.9)]">
-                    --
-                  </span>
-                </div>
-
-                <!-- Minutes -->
-                <div class="count-segment bg-slate-900/80 border border-pink-400/70 rounded-md sm:rounded-lg px-3 py-3 sm:px-4 sm:py-4 flex flex-col items-center justify-between">
-                  <span class="text-[0.65rem] sm:text-xs uppercase tracking-[0.15em] text-pink-200/80 mb-1 sm:mb-2 font-mono">Минуты</span>
-                  <span id="minutes" class="font-['Rubik_Mono_One',system-ui] text-2xl sm:text-3xl md:text-4xl text-pink-300 drop-shadow-[0_0_12px_rgba(244,114,182,0.9)]">
-                    --
-                  </span>
-                </div>
-
-                <!-- Seconds -->
-                <div class="count-segment bg-slate-900/80 border border-emerald-400/70 rounded-md sm:rounded-lg px-3 py-3 sm:px-4 sm:py-4 flex flex-col items-center justify-between">
-                  <span class="text-[0.65rem] sm:text-xs uppercase tracking-[0.15em] text-emerald-200/80 mb-1 sm:mb-2 font-mono">Секунды</span>
-                  <span id="seconds" class="font-['Rubik_Mono_One',system-ui] text-2xl sm:text-3xl md:text-4xl text-emerald-300 drop-shadow-[0_0_12px_rgba(52,211,153,0.9)]">
-                    --
-                  </span>
-                </div>
-              </div>
-            </section>
-
-            <!-- Нижний блок с сообщениями -->
-            <section class="mt-7 sm:mt-9 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 text-xs sm:text-sm">
-              <div class="flex-1 bg-black/50 border border-slate-600/80 px-3 py-3 sm:px-4 sm:py-3 flex items-start gap-3">
-                <div class="mt-0.5 text-amber-300">
-                  ⚡
-                </div>
-                <div>
-                  <div id="status" class="font-semibold tracking-wide uppercase text-[0.65rem] sm:text-xs text-amber-300">
-                    Загружаем хаос...
-                  </div>
-                  <p id="status-description" class="mt-1 text-slate-200/90 font-['Special_Elite',monospace] leading-relaxed">
-                    Система подстраивает новый год под твой личный мятеж. Таймер автоматически переключится на следующий Новый год.
-                  </p>
-                </div>
-              </div>
-
-              <div class="flex flex-col gap-2 min-w-[190px]">
-                <button id="toggle-sound" class="group relative overflow-hidden inline-flex items-center justify-center px-3 py-2 text-[0.68rem] sm:text-xs font-semibold uppercase tracking-[0.2em] border border-pink-400/80 bg-pink-600/30 text-pink-100 hover:bg-pink-500/40 hover:border-pink-300/90 transition">
-                  <span class="absolute inset-0 bg-gradient-to-r from-pink-500/40 via-amber-400/40 to-emerald-400/40 opacity-0 group-hover:opacity-100 mix-blend-screen transition"></span>
-                  <span class="relative flex items-center gap-2">
-                    <span id="sound-indicator" class="inline-flex w-1.5 h-3 rounded-full bg-pink-300 shadow-[0_0_10px_rgba(244,114,182,0.9)]"></span>
-                    <span>Фантомная гитара</span>
-                  </span>
-                </button>
-                <p class="text-[0.6rem] text-slate-300/80 font-mono leading-relaxed">
-                  Без звука и без рекламы. Просто представь, как в полночь валит стеной твой любимый панк.
-                </p>
-              </div>
-            </section>
-          </div>
-        </section>
-      </div>
-    </section>
 
     <!-- Full news page -->
     <section id="newsPage" class="pt-10 pb-20 hidden">
@@ -873,50 +759,30 @@
 
         <div id="newsList" class="space-y-6 text-sm text-slate-200">
           <div class="space-y-4">
-            <!-- News sale: скидка 50% на заказ песен -->
-            <article id="sale-article" class="border border-pink-500/80 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 rounded-md px-4 py-4 flex flex-col gap-3 card-hover shadow-[0_0_25px_rgба(244,114,182,0.45)]">
-              <div class="flex flex-wrap items-center justify-between gap-3">
-                <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em]">
-                  <span class="inline-flex items-center justify-center px-2 py-1 border border-pink-400 rounded-sm bg-pink-500 text-black font-bold">АКЦИЯ</span>
-                  <span class="text-пинк-200/90">скидка 50% на заказ песен</span>
-                </div>
-                <span id="sale-timer" class="text-[10px] uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-black/60 border border-lime-400/80 text-lime-300 shadow-[0_0_16px_rgба(190,242,100,0.65)]">
-                  до 1 января включительно
-                </span>
-              </div>
-              <p class="text-[12px] text-slate-100">
-                Сейчас мы рубим цену на заказ авторских треков <span class="font-semibold text-lime-300">ровно вдвое</span> — вместо 5000 ₽ песня под тебя стоит <span class="font-bold text-lime-300">2500 ₽</span>. Панк, пост‑панк, грязный поп‑панк — всё по акции.
-              </p>
-              <p class="text-[12px] text-slate-200">
-                Успеть можно <span class="font-semibold text-pink-300">до 1 января включительно</span>. Просто переходи в блок
-                <a href="#order" class="text-orange-300 hover:text-orange-200 underline underline-offset-2">«заказ песен»</a>, заполняй форму и кидай нам заявку в ВКонтакте.
-              </p>
-            </article>
-
-            <!-- News: Анонс трека "Новый мир горит" -->
-            <article class="border border-yellow-400/80 bg-yellow-400/10 rounded-md px-4 py-3 flex flex-col gap-3 card-hover">
+            <!-- News: Релиз трека "Новый мир горит" -->
+            <article class="border border-lime-500/80 bg-lime-500/10 rounded-md px-4 py-3 flex flex-col gap-3 card-hover">
               <div class="flex items-center justify-between gap-2">
-                <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-yellow-200">
-                  <span class="inline-flex items-center justify-center px-2 py-1 border border-yellow-300 rounded-sm bg-yellow-400 text-black font-bold">АНОНС</span>
-                  <span class="text-yellow-200/90">новый мир горит</span>
+                <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-lime-200">
+                  <span class="inline-flex items-center justify-center px-2 py-1 border border-lime-300 rounded-sm bg-lime-400 text-black font-bold">РЕЛИЗ</span>
+                  <span class="text-lime-300/90">новый мир горит</span>
                 </div>
-                <span class="text-[10px] text-yellow-900 uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-yellow-300 border border-yellow-500 shadow-[0_0_12px_rgba(250,204,21,0.7)]">
+                <span class="text-[10px] text-emerald-900 uppercase tracking-[0.18em] px-2 py-1 rounded-sm bg-emerald-300 border border-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.7)]">
                   СКОРО НА ВСЕХ ПЛОЩАДКАХ
                 </span>
               </div>
-              <p class="text-[12px] text-yellow-50">
-                Готовим новогодний панк-гимн <span class="font-semibold text-yellow-200">«Новый мир горит»</span> — про ночь, когда залпы салютов, чужие желания и прошлогодний хлам сгорают в одном большом костре, а ты орёшь свои тосты поверх президентской речи.
+              <p class="text-[12px] text-lime-100">
+                Готовим новогодний панк-гимн <span class="font-semibold text-lime-300">«Новый мир горит»</span> — про ночь, когда залпы салютов, чужие желания и прошлогодний хлам сгорают в одном большом костре, а ты орёшь свои тосты поверх президентской речи.
               </p>
-              <p class="text-[12px] text-yellow-50">
+              <p class="text-[12px] text-lime-100">
                 Это поздравление вместо «С Новым годом»: быстрый, дерзкий и чуть пьяный панк, гитары на пределе, припев, под который хочется обниматься, бить бокалы об раковину и выкидывать весь старый год с балкона.
               </p>
-              <p class="text-[11px] uppercase tracking-[0.22em] text-yellow-200 bg-yellow-400/10 border border-yellow-400/60 rounded-sm px-3 py-1 inline-flex items-center gap-2 shadow-[0_0_14px_rgba(250,204,21,0.6)]">
-                <span class="w-1.5 h-1.5 rounded-full bg-yellow-300 animate-pulse"></span>
+              <p class="text-[11px] uppercase tracking-[0.22em] text-lime-200 bg-lime-500/10 border border-lime-400/60 rounded-sm px-3 py-1 inline-flex items-center gap-2 shadow-[0_0_14px_rgba(34,197,94,0.6)]">
+                <span class="w-1.5 h-1.5 rounded-full bg-lime-300 animate-pulse"></span>
                 <span>официальная дата релиза трека — 1 января <span class="text-red-500 font-extrabold">2026</span> года в 00:00</span>
               </p>
-              <p class="text-[12px] text-yellow-50">
+              <p class="text-[12px] text-lime-100">
                 Следи за датой релиза, новогодним отсчётом и первыми сниппетами в нашей группе ВКонтакте:
-                <a href="https://vk.com/beaten_off_guys" target="_blank" rel="noopener noreferrer" class="text-yellow-200 hover:text-yellow-100 underline underline-offset-2">vk.com/beaten_off_guys</a>.
+                <a href="https://vk.com/beaten_off_guys" target="_blank" rel="noopener noreferrer" class="text-lime-200 hover:text-lime-100 underline underline-offset-2">vk.com/beaten_off_guys</a>.
               </p>
             </article>
 
@@ -1094,7 +960,7 @@
       <div class="max-w-6xl mx-auto">
         <div class="flex items-baseline justify-between mb-6">
           <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-[0.2em] text-slate-100">заказ песен</h2>
-          <span class="text-[10px] uppercase tracking-[0.25em] text-slate-500">под ключ за 2500 ₽</span>
+          <span class="text-[10px] uppercase tracking-[0.25em] text-slate-500">под ключ за 5000 ₽</span>
         </div>
 
         <div class="grid lg:grid-cols-[3fr,2fr] gap-8 items-start">
@@ -1111,8 +977,8 @@
 
             <div class="mb-5 flex flex-wrap items-center gap-4 text-sm">
               <div class="text-2xl font-black text-lime-400">
-                2500 ₽
-                <span class="block text-[10px] text-slate-400 font-normal uppercase tracking-[0.25em]">со скидкой 50% · фикс за трек</span>
+                5000 ₽
+                <span class="block text-[10px] text-slate-400 font-normal uppercase tracking-[0.25em]">фикс за трек</span>
               </div>
               <ul class="text-[11px] text-slate-300 space-y-1">
                 <li>— текст под тебя</li>
@@ -1320,154 +1186,6 @@
         });
       }
 
-      // New Year countdown — advanced logic to next Jan 1, 00:00 with punk states
-      (function () {
-        if (!daysEl || !hoursEl || !minutesEl || !secondsEl || !yearEl || !statusEl || !statusDescEl) return;
-
-        let targetDate;
-        let targetYear;
-        let ticking = false;
-
-        function computeNextNY() {
-          const now = new Date();
-          const thisYear = now.getFullYear();
-          const nyThisYear = new Date(thisYear + 1, 0, 1, 0, 0, 0, 0); // 1 января следующего года (00:00)
-
-          // Если сейчас уже после Нового года (1 января 00:00), отсчитываем до следующего
-          if (now < nyThisYear) {
-            targetYear = nyThisYear.getFullYear();
-            targetDate = nyThisYear;
-          } else {
-            const nyNext = new Date(thisYear + 2, 0, 1, 0, 0, 0, 0);
-            targetYear = nyNext.getFullYear();
-            targetDate = nyNext;
-          }
-
-          if (yearEl) yearEl.textContent = targetYear.toString();
-        }
-
-        function pad(n) {
-          return n.toString().padStart(2, '0');
-        }
-
-        function updateStatus(ms) {
-          if (!statusEl || !statusDescEl) return;
-
-          const totalSeconds = Math.floor(ms / 1000);
-          const totalMinutes = Math.floor(totalSeconds / 60);
-          const totalHours = Math.floor(totalMinutes / 60);
-          const totalDays = Math.floor(totalHours / 24);
-
-          // Состояние в зависимости от оставшегося времени
-          if (ms <= 0) {
-            statusEl.textContent = 'Пора ломать тишину';
-            statusDescEl.textContent = 'С Новым годом! Выкручивай громкость, обнуляй страхи и пиши свой манифест заново.';
-            return;
-          }
-
-          if (totalDays > 30) {
-            statusEl.textContent = 'Время строить подполье';
-            statusDescEl.textContent = 'До взрыва часов ещё далеко — самое время собирать плейлист, шить нашивки и звать своих.';
-          } else if (totalDays > 7) {
-            statusEl.textContent = 'Обратный отсчёт официально начат';
-            statusDescEl.textContent = 'Каждый день ближе к полуночи. Планируй, где встретишь год, чтобы было что вспоминать (или не помнить).';
-          } else if (totalDays > 1) {
-            statusEl.textContent = 'Финишная прямая';
-            statusDescEl.textContent = 'Неделя нервного смеха и предновогоднего хаоса. Не забывай оставаться собой, даже под гирляндами.';
-          } else if (totalHours >= 1) {
-            statusEl.textContent = 'Последние сутки перед взрывом';
-            statusDescEl.textContent = 'Это тот самый день. Прими душ, заряди телефон, подведи итоги, но не переборщи с пафосом.';
-          } else if (totalMinutes >= 1) {
-            statusEl.textContent = 'Минуты до рестарта';
-            statusDescEl.textContent = 'Скоро всё снова начнётся сначала. Сделай глубокий вдох, посчитай до 10 и кричи в небо всё, что накопилось.';
-          } else {
-            statusEl.textContent = 'Секунды до удара';
-            statusDescEl.textContent = 'Смотри, не моргай. Сейчас мир сделает мягкий сброс, а ты — жёсткий апдейт.';
-          }
-        }
-
-        function tick() {
-          const now = new Date();
-          const diff = targetDate - now;
-
-          if (diff <= 0) {
-            daysEl.textContent = '00';
-            hoursEl.textContent = '00';
-            minutesEl.textContent = '00';
-            secondsEl.textContent = '00';
-            updateStatus(0);
-
-            document.body.classList.add('bg-black');
-            const main = document.querySelector('main');
-            if (main) {
-              main.style.animation = 'punk-shake 0.4s infinite';
-            }
-
-            return;
-          }
-
-          const totalSeconds = Math.floor(diff / 1000);
-          const seconds = totalSeconds % 60;
-          const totalMinutes = Math.floor(totalSeconds / 60);
-          const minutes = totalMinutes % 60;
-          const totalHours = Math.floor(totalMinutes / 60);
-          const hours = totalHours % 24;
-          const days = Math.floor(totalHours / 24);
-
-          daysEl.textContent = days.toString().padStart(2, '0');
-          hoursEl.textContent = pad(hours);
-          minutesEl.textContent = pad(minutes);
-          secondsEl.textContent = pad(seconds);
-
-          // Подсветка, когда остаётся меньше часа
-          const timerSection = document.querySelector('section .count-segment:last-child')?.parentElement;
-          if (totalHours < 1) {
-            if (timerSection) timerSection.classList.add('flash');
-          } else {
-            if (timerSection) timerSection.classList.remove('flash');
-          }
-
-          updateStatus(diff);
-        }
-
-        // Ложный переключатель звука для атмосферы
-        function setupFakeSound() {
-          if (!toggleSoundBtn || !soundIndicator) return;
-
-          toggleSoundBtn.addEventListener('click', () => {
-            fakeSoundOn = !fakeSoundOn;
-
-            // Находим именно текстовую подпись внутри кнопки
-            const labelSpan =
-              toggleSoundBtn.querySelector('.relative span:last-child') ||
-              toggleSoundBtn.querySelector('span:last-child');
-
-            if (fakeSoundOn) {
-              // Включённый режим: индикатор мигает оранжевым, текст меняется
-              soundIndicator.classList.add('flash');
-              soundIndicator.style.backgroundColor = '#f97316';
-              if (labelSpan) labelSpan.textContent = 'Гитара уже орёт в голове';
-            } else {
-              // Выключенный режим: возвращаем базовое состояние
-              soundIndicator.classList.remove('flash');
-              soundIndicator.style.backgroundColor = '#f9a8d4';
-              if (labelSpan) labelSpan.textContent = 'Фантомная гитара';
-            }
-          });
-        }
-
-        function initCountdown() {
-          if (ticking) return;
-          ticking = true;
-
-          computeNextNY();
-          tick();
-          setInterval(tick, 1000);
-          setupFakeSound();
-        }
-
-        initCountdown();
-      })();
 
       function showToast(message) {
         if (!toast || !toastMessage) return;
@@ -1492,7 +1210,7 @@
           const idea = (formData.get('idea') || '').toString().trim() || 'Без описания';
           const fast = formData.get('fast') === 'on';
 
-          const text = `Заявка на заказ песни\n\nИмя: ${name}\nКонтакт: ${contact}\nНужно быстрее обычного: ${fast ? 'да' : 'нет'}\n\nИдея трека:\n${idea}\n\nСтоимость: 2500 ₽ (со скидкой 50%, фикс за трек)`;
+          const text = `Заявка на заказ песни\n\nИмя: ${name}\nКонтакт: ${contact}\nНужно быстрее обычного: ${fast ? 'да' : 'нет'}\n\nИдея трека:\n${idea}\n\nСтоимость: 5000 ₽ (фикс за трек)`;
 
           showToast(text);
 
@@ -1680,5 +1398,7 @@
       document.addEventListener('DOMContentLoaded', init);
     }
   </script>
+  <!-- Jivo chat widget -->
+  <script src="//code.jivo.ru/widget/8RvYQu9S55" async></script>
 </body>
 </html>
