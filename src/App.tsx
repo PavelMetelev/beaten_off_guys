@@ -101,7 +101,7 @@ function Hero() {
     <section
       id="hero"
       className="hero-section"
-      style={{ backgroundImage: "url('/images/hero-bg.jpg')" }}
+      style={{ backgroundImage: `url(${import.meta.env.BASE_URL}hero-bg.jpg)` }}
     >
       <div className="hero-overlay" />
       <div className="hero-content">
