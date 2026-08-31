@@ -62,29 +62,23 @@ body {
 }
 
 .nav-link {
-  color: var(--text-muted);
+  color: #fff;
   text-decoration: none;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.5px;
-  transition: color 0.2s;
+  transition: color 0.2s, background 0.2s, box-shadow 0.2s;
   position: relative;
-  padding-bottom: 4px;
-}
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--red);
-  transform: scaleX(0);
-  transition: transform 0.25s;
+  padding: 0.4rem 1rem;
+  border-radius: 5px;
+  border: 1px solid transparent;
 }
 .nav-link:hover {
   color: #fff;
-}
-.nav-link:hover::after {
-  transform: scaleX(1);
+  background: rgba(230, 57, 70, 0.18);
+  border-color: var(--red);
+  box-shadow: 0 0 12px rgba(230,57,70,0.35);
+  text-shadow: 0 0 8px rgba(230,57,70,0.7);
 }
 
 /* Burger */
@@ -736,7 +730,7 @@ body {
   height: 100%;
   width: 100%;
   background: var(--red);
-  animation: loadBar 1.8s linear forwards;
+  animation: loadBar 5s linear forwards;
   transform-origin: left;
   transform: scaleX(0);
 }
@@ -744,6 +738,7 @@ body {
   0% { transform: scaleX(0); }
   100% { transform: scaleX(1); }
 }
+
 
 /* ═══════════════════════════════════════════════════════════════════
    FOOTER
